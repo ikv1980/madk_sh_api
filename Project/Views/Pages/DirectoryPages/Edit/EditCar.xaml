@@ -1,0 +1,333 @@
+﻿<ui:UiWindow x:Class="Project.Views.Pages.DirectoryPages.Edit.EditCar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:modern="http://schemas.modernwpf.com/2019"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d"
+             MinHeight="150" MinWidth="300"
+             SizeToContent="WidthAndHeight"
+             WindowStartupLocation="CenterScreen"
+             Title="Заголовок окна"
+             ResizeMode="NoResize"
+             Loaded="UiWindow_Loaded">
+    <Grid>
+        <modern:SimpleStackPanel HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Spacing="30"
+                                 Margin="20, 20, 20, 20">
+            <Grid>
+                <!-- Основная структура -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="450" />
+                    <ColumnDefinition Width="600" />
+                </Grid.ColumnDefinitions>
+                <!-- Левая часть -->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="0" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="0,10,0,10">
+                        <Border Grid.Row="0"
+                                BorderBrush="Gray"
+                                BorderThickness="0,0,0,1">
+                            <TextBlock
+                                FontSize="20"
+                                FontWeight="SemiBold"
+                                HorizontalAlignment="Center"
+                                Text="Информация об автомобиле"
+                                Margin="0,10,0,5" />
+
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="1" Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Text="Марка авто:"
+                                   Margin="0,0,10,0"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   VerticalAlignment="Center" />
+                        <ComboBox Grid.Column="1"
+                                  FontSize="17"
+                                  modern:ControlHelper.CornerRadius="5"
+                                  modern:ControlHelper.PlaceholderText="Выберите марку"
+                                  x:Name="EditCarMark"
+                                  SelectedValuePath="MarkId"
+                                  DisplayMemberPath="MarkName"
+                                  HorizontalAlignment="Stretch"
+                                  SelectionChanged="SelectionMark"
+                                  BorderBrush="DimGray" />
+                    </Grid>
+                    <Grid Grid.Row="2" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Text="Модель авто:"
+                                   Margin="0,0,10,0"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   VerticalAlignment="Center" />
+                        <ComboBox Grid.Column="1"
+                                  FontSize="17"
+                                  modern:ControlHelper.CornerRadius="5"
+                                  modern:ControlHelper.PlaceholderText="Выберите модель"
+                                  x:Name="EditCarModel"
+                                  SelectedValuePath="ModelId"
+                                  DisplayMemberPath="ModelName"
+                                  HorizontalAlignment="Stretch"
+                                  SelectionChanged="SelectionModel"
+                                  IsEnabled="False"
+                                  BorderBrush="DimGray" />
+                    </Grid>
+                    <Grid Grid.Row="3" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Text="Страна:"
+                                   Margin="0,0,10,0"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   VerticalAlignment="Center" />
+                        <ComboBox Grid.Column="1"
+                                  FontSize="17"
+                                  modern:ControlHelper.CornerRadius="5"
+                                  modern:ControlHelper.PlaceholderText="Выберите страну"
+                                  x:Name="EditCarCountry"
+                                  SelectedValuePath="CountryId"
+                                  DisplayMemberPath="CountryName"
+                                  HorizontalAlignment="Stretch"
+                                  IsEnabled="False"
+                                  BorderBrush="DimGray" />
+                    </Grid>
+                    <Grid Grid.Row="4" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Text="Тип кузова:"
+                                   Margin="0,0,10,0"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   VerticalAlignment="Center" />
+                        <ComboBox Grid.Column="1"
+                                  FontSize="17"
+                                  modern:ControlHelper.CornerRadius="5"
+                                  modern:ControlHelper.PlaceholderText="Выберите тип кузова"
+                                  x:Name="EditCarType"
+                                  SelectedValuePath="TypeId"
+                                  DisplayMemberPath="TypeName"
+                                  HorizontalAlignment="Stretch"
+                                  BorderBrush="DimGray" />
+                    </Grid>
+                    <Grid Grid.Row="5" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Text="Цвет кузова:"
+                                   Margin="0,0,10,0"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   VerticalAlignment="Center" />
+                        <ComboBox Grid.Column="1"
+                                  FontSize="17"
+                                  modern:ControlHelper.CornerRadius="5"
+                                  modern:ControlHelper.PlaceholderText="Выберите цвет"
+                                  x:Name="EditCarColor"
+                                  SelectedValuePath="ColorId"
+                                  DisplayMemberPath="ColorName"
+                                  HorizontalAlignment="Stretch"
+                                  BorderBrush="DarkGray" />
+                    </Grid>
+                    <Grid Grid.Row="6" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Text="VIN код:"
+                                   ToolTip="Идентификационный номер транспортного средства"
+                                   Margin="0,0,10,0"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   VerticalAlignment="Center" />
+                        <Border Grid.Column="1"
+                                Background="White"
+                                BorderBrush="LightGray"
+                                BorderThickness="1,1,1,0"
+                                CornerRadius="2"
+                                VerticalAlignment="Center">
+                            <Border.Effect>
+                                <DropShadowEffect Color="DarkGray" Direction="270" BlurRadius="0" ShadowDepth="1" />
+                            </Border.Effect>
+                            <xctk:MaskedTextBox Grid.Column="1"
+                                                Mask="AAA AAAAA AAAAAAAAA"
+                                                FontSize="18"
+                                                BorderThickness="0"
+                                                Padding="5"
+                                                x:Name="EditCarVin"
+                                                HorizontalAlignment="Stretch" />
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="7" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Text="Номер ПТС:"
+                                   ToolTip="Паспорт транспортного средства"
+                                   Margin="0,0,10,0"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   VerticalAlignment="Center" />
+                        <Border Grid.Column="1"
+                                Background="White"
+                                BorderBrush="LightGray"
+                                BorderThickness="1,1,1,0"
+                                CornerRadius="2"
+                                VerticalAlignment="Center">
+                            <Border.Effect>
+                                <DropShadowEffect Color="DarkGray" Direction="270" BlurRadius="0" ShadowDepth="1" />
+                            </Border.Effect>
+                            <xctk:MaskedTextBox Grid.Column="1"
+                                                Mask="00 AA 000000"
+                                                FontSize="18"
+                                                BorderThickness="0"
+                                                Padding="5"
+                                                x:Name="EditCarPts"
+                                                HorizontalAlignment="Stretch" />
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="8" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Дата производства:"
+                                   Grid.Column="0"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   VerticalAlignment="Center" />
+                        <DatePicker Grid.Column="1"
+                                    FontSize="17"
+                                    Width="150"
+                                    x:Name="EditCarDate"
+                                    SelectedDateFormat="Short" />
+                    </Grid>
+                    <Grid Grid.Row="9" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Text="Статус:"
+                                   Margin="0,0,10,0"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="1"
+                                   Text="Доступна к продаже"
+                                   Margin="0,0,10,0"
+                                   Padding="10,5"
+                                   FontSize="17" FontWeight="SemiBold"
+                                   x:Name="ShowCarBlock"
+                                   VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Grid.Row="10" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Text="Цена:"
+                                   Margin="0,0,10,0"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   VerticalAlignment="Center" />
+                        <Border Grid.Column="1"
+                                Background="White"
+                                BorderBrush="LightGray"
+                                BorderThickness="1,1,1,0"
+                                CornerRadius="2"
+                                VerticalAlignment="Center">
+                            <Border.Effect>
+                                <DropShadowEffect Color="DarkGray" Direction="270" BlurRadius="0" ShadowDepth="1" />
+                            </Border.Effect>
+                            <ui:TextBox Grid.Column="1"
+                                        BorderThickness="0"
+                                        PlaceholderText="0"
+                                        FontSize="20"
+                                        FontWeight="SemiBold"
+                                        Foreground="Brown"
+                                        x:Name="EditPrice"
+                                        HorizontalContentAlignment="Right"
+                                        HorizontalAlignment="Stretch"
+                                        PreviewTextInput="EditPrice_Input" />
+                        </Border>
+                    </Grid>
+                </Grid>
+                <!-- Правая часть -->
+                <Grid Grid.Column="1" Margin="10,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0"
+                            Margin="10,5,5,5"
+                            Background="LightGray"
+                            BorderBrush="Gray"
+                            BorderThickness="1"
+                            CornerRadius="5">
+                        <Image x:Name="EditCarImage" Stretch="Uniform" />
+                    </Border>
+                    <ui:Button Grid.Row="1"
+                               Content="Загрузить фото"
+                               FontSize="17"
+                               Padding="5,5"
+                               Margin="10,10,5,0"
+                               Click="UploadImage_Click"
+                               HorizontalAlignment="Stretch" />
+                </Grid>
+            </Grid>
+            <Border Grid.Row="0"
+                    BorderBrush="LightGray"
+                    BorderThickness="0,1,0,0">
+                <StackPanel
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <ui:Button FontSize="18"
+                               Background="DodgerBlue"
+                               Content="Действие"
+                               modern:ControlHelper.CornerRadius="5"
+                               Appearance="Primary"
+                               x:Name="SaveButton"
+                               Margin="20,0,0,0"
+                               Click="SaveButton_Click" />
+                    <ui:Button FontSize="18"
+                               Background="DodgerBlue"
+                               Content="Отмена"
+                               Icon="Dismiss24"
+                               modern:ControlHelper.CornerRadius="5"
+                               Appearance="Primary"
+                               Margin="20,0,0,0"
+                               Click="CancelButton_Click" />
+                </StackPanel>
+            </Border>
+        </modern:SimpleStackPanel>
+    </Grid>
+</ui:UiWindow>

@@ -1,0 +1,88 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EasyCaptcha.Wpf" Version="0.9.0.3" />
+    <PackageReference Include="EPPlus" Version="7.5.3" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.1" />
+    <PackageReference Include="LiveCharts" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.20">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="ModernWpfUI" Version="0.9.6" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
+    <PackageReference Include="WPF-UI" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\ico\dictionary.png" />
+    <Resource Include="Resources\ico\orders.png" />
+    <Resource Include="Resources\ico\settings.png" />
+    <Resource Include="Resources\ico\user.png" />
+    <Resource Include="Resources\ikv.png" />
+    <Resource Include="Resources\Logo.png" />
+    <Resource Include="Resources\Logo_tomware.png" />
+    <None Remove="Resources\ico\report.png" />
+    <Resource Include="Resources\ico\report.png" />
+    <None Remove="Resources\ico\exit.png" />
+    <Resource Include="Resources\ico\exit.png" />
+    <None Remove="Resources\ico\ikv.png" />
+    <None Remove="Resources\ico\plus.png" />
+    <None Remove="Resources\ico\plus01.png" />
+    <None Remove="Resources\ico\plus02.png" />
+    <None Remove="Resources\ico\plus03.png" />
+    <None Remove="Resources\ico\plus04.png" />
+    <Resource Include="Resources\ico\plus.png" />
+    <None Remove="Resources\ico\plus05.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Pages\Directory\CountryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Directory\CarsColor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\DirectoryPages\CarCountriesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\DirectoryPages\OrderClientsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\DirectoryPages\StatusId.Pagexaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\DirectoryPages\Edit\EditCar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Pages\DirectoryPages\Edit\EditDepartmentFunction.xaml.cs">
+      <DependentUpon>EditDepartmentFunction.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

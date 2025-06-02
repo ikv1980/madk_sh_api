@@ -1,0 +1,270 @@
+﻿<Window x:Class="Project.Views.ProjectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:direct="clr-namespace:Project.Views.Pages.DirectoryPages"
+        Title="Автосалон"
+        Width="1250" Height="960"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        Background="LightSkyBlue">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="54" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Основной Grid для вкладок -->
+        <Grid x:Name="MenuGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <!-- Для всех вкладок -->
+                <ColumnDefinition Width="Auto" />
+                <!-- Для справочников -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Вкладки -->
+            <TabControl x:Name="MainTabControl"
+                        FontSize="15"
+                        VerticalAlignment="Stretch"
+                        SelectionChanged="TabControl_Select"
+                        Background="LightSkyBlue"
+                        Grid.Column="0">
+                <!-- Первый Grid -->
+                <!-- Вкладка Выход -->
+                <TabItem x:Name="ExitPage">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="/Resources/ico/exit.png" Width="30" Height="30" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <!-- Вкладка Пользователь -->
+                <TabItem x:Name="UserPage"
+                         Tag="Project.Views.Pages.UserPage"
+                         FocusVisualStyle="{x:Null}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="/Resources/ico/user.png" Width="30" Height="30" />
+                            <TextBlock Text="Пользователь" Margin="5" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <!-- Вкладка Заказы -->
+                <TabItem x:Name="OrderPage"
+                         Tag="Project.Views.Pages.OrderPage"
+                         FocusVisualStyle="{x:Null}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="/Resources/ico/orders.png" Width="30" Height="30" />
+                            <TextBlock Text="Заказы" Margin="5" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <!-- Вкладка Отчеты -->
+                <TabItem x:Name="ReportPage"
+                         Tag="Project.Views.Pages.ReportPage"
+                         FocusVisualStyle="{x:Null}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="/Resources/ico/report.png" Width="30" Height="30" />
+                            <TextBlock Text="Отчеты" Margin="5" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <!-- Вкладка Настройки -->
+                <TabItem x:Name="SettingTab"
+                         Tag="Project.Views.Pages.SettingPage"
+                         FocusVisualStyle="{x:Null}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="/Resources/ico/settings.png" Width="30" Height="30" />
+                            <TextBlock Text="Настройки" Margin="5,5" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+            </TabControl>
+            <TabControl x:Name="SecondTabControl"
+                        FontSize="15"
+                        VerticalAlignment="Stretch"
+                        SelectionChanged="TabControl_Select"
+                        Margin="0, 0,5,0"
+                        Background="LightSkyBlue"
+                        Grid.Column="1">
+                <TabItem Visibility="Collapsed">
+                </TabItem>
+                <!-- Вкладка Справочники -->
+                <TabItem x:Name="Directoryes"
+                         MouseUp="Directoryes_MouseUp"
+                         FocusVisualStyle="{x:Null}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="/Resources/ico/dictionary.png" Width="30" Height="30" />
+                            <TextBlock Text="Справочники" Margin="5" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Popup x:Name="SubMenuPopup"
+                           PlacementTarget="{Binding ElementName=Directoryes}" StaysOpen="False">
+                        <StackPanel
+                            Background="White"
+                            Width="{Binding ActualWidth, ElementName=Directoryes}">
+                            <!-- Кнопка "Заказы" с вложенными кнопками -->
+                            <Expander
+                                x:Name="OrdersExpander"
+                                IsExpanded="False"
+                                Margin="0,0,0,1"
+                                Padding="5,0,0,0"
+                                Background="LightSkyBlue">
+                                <Expander.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="Заказы"
+                                                       FontWeight="SemiBold"
+                                                       FontSize="16"
+                                                       Padding="0,10" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Expander.HeaderTemplate>
+                                <StackPanel x:Name="OrdersButtonPanel" Margin="-5,0,0,0">
+                                    <Button
+                                        x:Name="OrdersButton"
+                                        Content="Заказы"
+                                        Tag="{x:Type direct:OrdersPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Button
+                                        x:Name="OrdersClientButton"
+                                        Content="Клиенты"
+                                        Tag="{x:Type direct:OrderClientsPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Button
+                                        x:Name="OrdersDeliveryButton"
+                                        Content="Типы доставки"
+                                        Tag="{x:Type direct:OrderDeliveriesPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Button
+                                        x:Name="OrdersPaymentButton"
+                                        Content="Типы оплаты"
+                                        Tag="{x:Type direct:OrderPaymentsPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Button
+                                        x:Name="OrdersStatusButton"
+                                        Content="Статусы заказа"
+                                        Tag="{x:Type direct:OrderStatusesPage}"
+                                        Click="SubMenuButton_Click" />
+                                </StackPanel>
+                            </Expander>
+                            <!-- Кнопка "Автомобили" с вложенными кнопками -->
+                            <Expander
+                                x:Name="CarsExpander"
+                                IsExpanded="False"
+                                Margin="0,0,0,1"
+                                Padding="5,0,0,0"
+                                Background="LightSkyBlue">
+                                <Expander.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="Транспорт"
+                                                       FontWeight="SemiBold"
+                                                       FontSize="16"
+                                                       Padding="0,10" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Expander.HeaderTemplate>
+                                <StackPanel x:Name="CarsButtonPanel" Margin="-5,0,0,0">
+                                    <Button
+                                        x:Name="CarsButton"
+                                        Content="Автомобили"
+                                        Tag="{x:Type direct:CarsPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Button
+                                        x:Name="CarsCountryButton"
+                                        Content="Страны"
+                                        Tag="{x:Type direct:CarCountriesPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Button
+                                        x:Name="CarsMarkButton"
+                                        Content="Марки"
+                                        Tag="{x:Type direct:CarMarksPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Button
+                                        x:Name="CarsModelButton"
+                                        Content="Модели"
+                                        Tag="{x:Type direct:CarModelsPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Button
+                                        x:Name="CarsTypeButton"
+                                        Content="Типы кузова"
+                                        Tag="{x:Type direct:CarTypesPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Button
+                                        x:Name="CarsColorButton"
+                                        Content="Цвета"
+                                        Tag="{x:Type direct:CarColorsPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Separator Background="Gainsboro" />
+                                    <Button
+                                        x:Name="MmMarkModelButton"
+                                        Content="Марка - Модель"
+                                        Tag="{x:Type direct:CarMarkModelCountries}"
+                                        Click="SubMenuButton_Click" />
+                                </StackPanel>
+                            </Expander>
+                            <!-- Кнопка "Пользователи" с вложенными кнопками -->
+                            <Expander
+                                x:Name="UsersExpander"
+                                IsExpanded="False"
+                                Margin="0,0,0,1"
+                                Padding="5,0,0,0"
+                                Background="LightSkyBlue">
+                                <Expander.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="Пользователи"
+                                                       FontWeight="SemiBold"
+                                                       FontSize="16"
+                                                       Padding="0,10" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Expander.HeaderTemplate>
+                                <StackPanel x:Name="UsersButtonPanel" Margin="-5,0,0,0">
+                                    <Button
+                                        x:Name="UsersButton"
+                                        Content="Сотрудники"
+                                        Tag="{x:Type direct:UsersPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Button
+                                        x:Name="UsersDepartmentButton"
+                                        Content="Отделы"
+                                        Tag="{x:Type direct:UserDepartmentsPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Button
+                                        x:Name="UsersFunctionButton"
+                                        Content="Должности"
+                                        Tag="{x:Type direct:UserPositionsPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Button
+                                        x:Name="UsersStatusButton"
+                                        Content="Статусы"
+                                        Tag="{x:Type direct:UserStatusesPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Separator Background="Gainsboro" />
+                                    <Button
+                                        x:Name="MmDepartmentFunctionButton"
+                                        Content="Отдел - Должность"
+                                        Tag="{x:Type direct:UserDepartmentPositionsPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Separator Background="Gainsboro" />
+                                </StackPanel>
+                            </Expander>
+                        </StackPanel>
+                    </Popup>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+        <!-- Общий Frame для отображения страниц -->
+        <Frame x:Name="MainContent"
+               Background="White"
+               Grid.Row="1"
+               Margin="0" />
+    </Grid>
+</Window>

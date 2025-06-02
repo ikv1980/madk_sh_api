@@ -1,0 +1,213 @@
+﻿<ui:UiWindow x:Class="Project.Views.Pages.DirectoryPages.Edit.EditOrdersClient"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:modern="http://schemas.modernwpf.com/2019"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             mc:Ignorable="d"
+             MinHeight="150" MinWidth="400"
+             SizeToContent="WidthAndHeight"
+             WindowStartupLocation="CenterScreen"
+             Title="Заголовок окна"
+             ResizeMode="NoResize"
+             Loaded="UiWindow_Loaded">
+    <Grid>
+        <modern:SimpleStackPanel HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Spacing="30"
+                                 Margin="20, 20, 20, 20">
+            <Grid>
+                <!-- Основная структура -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="0" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="0,10,0,10">
+                    <TextBlock
+                        FontSize="20"
+                        FontWeight="SemiBold"
+                        HorizontalAlignment="Center"
+                        Text="Информация о клиенте"
+                        Margin="0,5" />
+                    <Line X1="0" Y1="40" X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
+                          Y2="40"
+                          Stroke="LightGray" StrokeThickness="1" HorizontalAlignment="Stretch" />
+                </Grid> <!--строка 0-->
+                <Grid Grid.Row="1" Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="170" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Наименование:"
+                               Margin="0,0,10,0"
+                               FontSize="18" FontWeight="SemiBold"
+                               VerticalAlignment="Center" />
+                    <ui:TextBox Grid.Column="1"
+                                Icon="Person24"
+                                FontSize="17"
+                                IconFilled="True"
+                                x:Name="EditClientName" />
+                </Grid>
+                <Grid Grid.Row="2" Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="170" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Телефон:"
+                               Grid.Column="0"
+                               FontSize="18" FontWeight="SemiBold"
+                               VerticalAlignment="Center" />
+                    <ui:TextBox Grid.Column="1"
+                                FontSize="17"
+                                Icon="PersonCall24"
+                                IconFilled="True"
+                                x:Name="EditClientPhone" />
+                </Grid>
+                <Grid Grid.Row="3" Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="170" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="E-mail:"
+                               Grid.Column="0"
+                               FontSize="18" FontWeight="SemiBold"
+                               VerticalAlignment="Center" />
+                    <ui:TextBox Grid.Column="1"
+                                FontSize="17"
+                                Icon="PersonMail24"
+                                IconFilled="True"
+                                x:Name="EditClientMail" />
+                </Grid>
+                <Grid Grid.Row="4" Margin="0,10,0,0">
+                    <TextBlock Text="Дополнительная информация:"
+                               Grid.Column="0"
+                               FontSize="18" FontWeight="SemiBold"
+                               VerticalAlignment="Center" />
+                </Grid>
+                <Grid Grid.Row="5" Margin="0,10,0,0">
+                    <ui:TextBox
+                        AcceptsReturn="True"
+                        MinHeight="60"
+                        VerticalAlignment="Top"
+                        TextWrapping="Wrap"
+                        FontSize="17"
+                        Icon="PersonAdd24"
+                        IconFilled="True"
+                        x:Name="EditClientAddData" />
+                </Grid>
+                <Grid Grid.Row="6" Margin="0,10,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="170" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Дата регистрации:"
+                               Grid.Column="0"
+                               FontSize="18" FontWeight="SemiBold"
+                               VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="1"
+                               FontSize="18"
+                               x:Name="ClientDateRegistrationTextBlock" />
+                </Grid>
+                <Grid Grid.Row="7" Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="170" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Статус:"
+                               Margin="0,0,10,0"
+                               FontSize="18" FontWeight="SemiBold"
+                               VerticalAlignment="Center" />
+                    <ComboBox Grid.Column="1"
+                              FontSize="17"
+                              modern:ControlHelper.CornerRadius="5"
+                              modern:ControlHelper.PlaceholderText="Выберите статус"
+                              x:Name="EditClientStatus"
+                              HorizontalAlignment="Stretch"
+                              BorderBrush="DarkGray">
+                        <ComboBoxItem Content="не активный" Tag="0" />
+                        <ComboBoxItem Content="активный" Tag="1" />
+                    </ComboBox>
+                </Grid>
+                <Grid Grid.Row="8" Margin="0,10,0,0">
+                    <Line X1="0" Y1="20" X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
+                          Y2="20"
+                          Stroke="LightGray" StrokeThickness="1" HorizontalAlignment="Stretch" />
+                </Grid>
+                <Grid Grid.Row="9" Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="170" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Логин:"
+                               Grid.Column="0"
+                               FontSize="18" FontWeight="SemiBold"
+                               VerticalAlignment="Center" />
+                </Grid>
+                <Grid Grid.Row="10" Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="170" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Пароль:"
+                               Grid.Column="0"
+                               FontSize="18" FontWeight="SemiBold"
+                               VerticalAlignment="Center" />
+                    <ui:PasswordBox
+                        Grid.Column="1"
+                        PlaceholderText="Введите новый пароль"
+                        FontSize="17"
+                        Icon="LockClosed16"
+                        IconFilled="True"
+                        PasswordChar="•"
+                        ClearButtonEnabled="False"
+                        x:Name="EditClientPassword" />
+                </Grid>
+                <Grid Grid.Row="11" Margin="0,10,0,0">
+                    <TextBlock Text="Подтверждаете удаление данных?"
+                               Grid.Column="0"
+                               FontSize="16" FontWeight="SemiBold"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               x:Name="DeleteTextBlock"
+                               Foreground="Red"
+                               Visibility="Collapsed" />
+                </Grid>
+                <Grid Grid.Row="12" Margin="0,20,0,0">
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <ui:Button FontSize="18"
+                                   Background="DodgerBlue"
+                                   Content="Действие"
+                                   modern:ControlHelper.CornerRadius="5"
+                                   Appearance="Primary"
+                                   x:Name="SaveButton"
+                                   Margin="20,0,0,0"
+                                   Click="SaveButton_Click" />
+                        <ui:Button FontSize="18"
+                                   Background="DodgerBlue"
+                                   Content="Отмена"
+                                   Icon="Dismiss24"
+                                   modern:ControlHelper.CornerRadius="5"
+                                   Appearance="Primary"
+                                   Margin="20,0,0,0"
+                                   Click="CancelButton_Click" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </modern:SimpleStackPanel>
+    </Grid>
+</ui:UiWindow>

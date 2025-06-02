@@ -1,0 +1,163 @@
+﻿<ui:UiWindow x:Class="Project.Views.AuthWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:modern="http://schemas.modernwpf.com/2019"
+             xmlns:easy="clr-namespace:EasyCaptcha.Wpf;assembly=EasyCaptcha.Wpf"
+             mc:Ignorable="d"
+             Icon="/Resources/ikv.png"
+             Loaded="Window_Loaded"
+             MinHeight="360" MinWidth="600"
+             WindowStartupLocation="CenterScreen"
+             Title="Окно авторизации" Height="360" Width="800"
+             ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*" />
+        </Grid.ColumnDefinitions>
+        <!-- Логотип -->
+        <Image Source="/Resources/Logo.png"
+               Width="150"
+               Height="150"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left"
+               Margin="15,15,0,0" />
+        <!-- Основное содержимое -->
+        <TabControl Margin="190,15,15,15" x:Name="MainTabControl" Background="LightSkyBlue">
+            <!-- Вкладка Авторизация -->
+            <TabItem Header="Авторизация">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontSize="15" />
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <ui:TextBox Grid.Row="1" Margin="0 64 0 0"
+                                PlaceholderText="Введите логин"
+                                Icon="Person16"
+                                FontSize="16"
+                                IconFilled="True"
+                                x:Name="LoginTextBox" />
+
+                    <ui:PasswordBox Grid.Row="2" Margin="0 20 0 0 "
+                                    PlaceholderText="Введите пароль"
+                                    FontSize="16"
+                                    x:Name="PasswordBox"
+                                    IconFilled="True"
+                                    ClearButtonEnabled="False"
+                                    PasswordChar="•"
+                                    Icon="LockClosed16" />
+
+                    <ui:Button Grid.Row="3"
+                               Content="Авторизоваться"
+                               HorizontalAlignment="Stretch"
+                               Appearance="Primary"
+                               FontSize="19"
+                               Click="AuthButton_Click"
+                               x:Name="AuthButton"
+                               Margin="0 10 0 0"
+                               Background="DodgerBlue" />
+                </Grid>
+            </TabItem>
+            <!-- Вкладка Регистрация -->
+            <TabItem Header="Регистрация">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontSize="15" />
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ui:TextBox Grid.Column="0"
+                                    PlaceholderText="Введите Имя"
+                                    Icon="Person16"
+                                    FontSize="16"
+                                    IconFilled="True"
+                                    x:Name="NameTextBox" />
+
+                        <ui:TextBox Grid.Column="2"
+                                    PlaceholderText="Введите Фамилию"
+                                    Icon="Person16"
+                                    FontSize="16"
+                                    IconFilled="True"
+                                    x:Name="SurnameTextBox" />
+                    </Grid>
+
+                    <ui:TextBox Grid.Row="1" Margin="0 10"
+                                PlaceholderText="Введите логин"
+                                Icon="Person16"
+                                FontSize="16"
+                                IconFilled="True"
+                                x:Name="RegisterLoginTextBox" />
+
+                    <ui:PasswordBox Grid.Row="2" Margin="0 10"
+                                    PlaceholderText="Введите пароль"
+                                    ToolTip="Пароль должен содержать не менее 6 символов"
+                                    FontSize="16"
+                                    x:Name="RegisterPasswordBox"
+                                    IconFilled="True"
+                                    ClearButtonEnabled="False"
+                                    PasswordChar="•"
+                                    Icon="LockClosed16" />
+
+                    <ui:Button Grid.Row="3" Margin="0 0 0 0"
+                               Content="Зарегистрироваться"
+                               HorizontalAlignment="Stretch"
+                               Appearance="Primary"
+                               FontSize="19"
+                               Click="RegisterButton_Click"
+                               x:Name="RegisterButton"
+                               Background="DodgerBlue" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <!-- Окно для ввода капчи -->
+        <ui:Dialog x:Name="CaptchaDialog"
+                   ButtonLeftAppearance="Light"
+                   ButtonLeftName="Новая капча"
+                   ButtonLeftClick="CaptchaLeftClick"
+                   ButtonRightAppearance="Primary"
+                   DialogHeight="340"
+                   Title="Пройдите капчу"
+                   ButtonRightClick="CaptchaRightClick"
+                   ButtonRightName="Ответить"
+                   Background="DodgerBlue">
+            <modern:SimpleStackPanel Spacing="10"
+                                     VerticalAlignment="Bottom"
+                                     Margin="0 0 0 0">
+                <TextBlock Text="Капча" FontSize="20"
+                           HorizontalAlignment="Center" />
+                <easy:Captcha x:Name="Captcha"
+                              Height="60"
+                              HorizontalAlignment="Stretch" />
+                <ui:TextBox PlaceholderText="Введите ответ"
+                            Icon="Text16"
+                            FontSize="16"
+                            IconFilled="True"
+                            x:Name="AnswerTextBox" />
+            </modern:SimpleStackPanel>
+        </ui:Dialog>
+    </Grid>
+</ui:UiWindow>

@@ -1,0 +1,54 @@
+﻿<ui:UiWindow x:Class="Project.Views.Pages.DirectoryPages.Edit.EditModel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:modern="http://schemas.modernwpf.com/2019"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             mc:Ignorable="d"
+             MinHeight="150" MinWidth="340"
+             SizeToContent="WidthAndHeight"
+             WindowStartupLocation="CenterScreen"
+             Title="Заголовок окна"
+             ResizeMode="NoResize"
+             Loaded="UiWindow_Loaded">
+    <Grid>
+        <modern:SimpleStackPanel HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Spacing="30"
+                                 Margin="20, 40, 20, 20">
+            <ui:TextBox FontSize="17"
+                        Width="300"
+                        PlaceholderText="Введите модель"
+                        modern:ControlHelper.CornerRadius="5"
+                        Icon="Save24"
+                        IconFilled="False"
+                        x:Name="EditModelName" />
+            <TextBlock Text="Подтверждаете удаление данных?"
+                       FontSize="16" FontWeight="SemiBold"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Foreground="Red"
+                       x:Name="DeleteTextBlock"
+                       Visibility="Collapsed" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <ui:Button FontSize="18"
+                           Background="DodgerBlue"
+                           Content="Действие"
+                           modern:ControlHelper.CornerRadius="5"
+                           Appearance="Primary"
+                           x:Name="SaveButton"
+                           Margin="20,0,0,0"
+                           Click="SaveButton_Click" />
+                <ui:Button FontSize="18"
+                           Background="DodgerBlue"
+                           Content="Отмена"
+                           Icon="Dismiss24"
+                           modern:ControlHelper.CornerRadius="5"
+                           Appearance="Primary"
+                           Margin="20,0,0,0"
+                           Click="CancelButton_Click" />
+            </StackPanel>
+        </modern:SimpleStackPanel>
+    </Grid>
+</ui:UiWindow>

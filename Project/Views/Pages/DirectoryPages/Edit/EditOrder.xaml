@@ -1,0 +1,358 @@
+﻿<ui:UiWindow x:Class="Project.Views.Pages.DirectoryPages.Edit.EditOrder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:modern="http://schemas.modernwpf.com/2019"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:tools="clr-namespace:Project.Tools"
+             mc:Ignorable="d"
+             MinHeight="150" MinWidth="400"
+             SizeToContent="WidthAndHeight"
+             WindowStartupLocation="CenterScreen"
+             Title="Заголовок окна"
+             ResizeMode="NoResize"
+             Loaded="UiWindow_Loaded">
+    <ui:UiWindow.Resources>
+        <tools:UserFullNameConverter x:Key="UserFullNameConverter" />
+        <tools:CarNameConverter x:Key="CarNameConverter" />
+        <tools:IndexConverter x:Key="IndexConverter" />
+        <tools:PriceConverter x:Key="PriceConverter" />
+    </ui:UiWindow.Resources>
+    <Grid>
+        <modern:SimpleStackPanel HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Spacing="30"
+                                 Margin="20, 20, 20, 20">
+            <Grid>
+                <!-- Основная структура -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="0,10,0,10">
+                    <Border BorderBrush="Gray"
+                            BorderThickness="0,0,0,1">
+                        <TextBlock
+                            FontSize="20"
+                            FontWeight="SemiBold"
+                            HorizontalAlignment="Center"
+                            Text="Информация о заказе"
+                            Margin="0,5" />
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="1" Margin="0,10,0,10" x:Name="ShowId" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Номер заказа:"
+                               FontSize="18" FontWeight="SemiBold"
+                               VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="1"
+                               FontSize="17" FontWeight="SemiBold"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               x:Name="ShowOrdersId" />
+                    <TextBlock Grid.Column="2"
+                               Text="от"
+                               FontSize="17" FontWeight="SemiBold"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="3"
+                               FontSize="17" FontWeight="SemiBold"
+                               Visibility="Collapsed"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               x:Name="ShowOrdersData" />
+                    <DatePicker Grid.Column="3"
+                                FontSize="17"
+                                Width="150"
+                                Visibility="Visible"
+                                x:Name="EditOrdersData"
+                                SelectedDateFormat="Short" />
+                    <TextBlock Grid.Column="4" />
+                </Grid>
+                <Grid Grid.Row="2" Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="110" />
+                        <ColumnDefinition Width="300" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Клиент:"
+                               FontSize="18" FontWeight="SemiBold" />
+                    <ComboBox Grid.Column="1"
+                              FontSize="17"
+                              modern:ControlHelper.CornerRadius="5"
+                              modern:ControlHelper.PlaceholderText="Выберите клиента"
+                              x:Name="EditOrdersClient"
+                              SelectedValuePath="ClientId"
+                              DisplayMemberPath="ClientName"
+                              Width="300"
+                              BorderBrush="DimGray" />
+                    <ui:Button Grid.Column="2" Width="35"
+                               Height="35"
+                               Margin="5,0"
+                               Padding="0"
+                               ToolTip="Добавление клиента"
+                               Visibility="Visible"
+                               Click="AddClient">
+                        <Image Source="/Resources/ico/plus.png" Width="30" Height="30" />
+                    </ui:Button>
+                    <TextBlock Grid.Column="3" />
+                    <TextBlock Grid.Column="4"
+                               Text="Менеджер:"
+                               FontSize="18" FontWeight="SemiBold" />
+                    <ComboBox Grid.Column="5"
+                              FontSize="17"
+                              modern:ControlHelper.CornerRadius="5"
+                              modern:ControlHelper.PlaceholderText="Выберите менеджера"
+                              x:Name="EditOrdersUsers"
+                              SelectedValuePath="Id"
+                              Width="300"
+                              BorderBrush="DimGray">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource UserFullNameConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+                <Grid Grid.Row="3" Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="110" />
+                        <ColumnDefinition Width="300" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Оплата:"
+                               FontSize="18" FontWeight="SemiBold" />
+                    <ComboBox Grid.Column="1"
+                              FontSize="17"
+                              modern:ControlHelper.CornerRadius="5"
+                              modern:ControlHelper.PlaceholderText="Выберите тип оплаты"
+                              x:Name="EditOrdersPayment"
+                              SelectedValuePath="PaymentId"
+                              DisplayMemberPath="PaymentName"
+                              Width="300"
+                              BorderBrush="DimGray" />
+                    <TextBlock Grid.Column="2" />
+                    <TextBlock Grid.Column="3"
+                               Text="Статус:"
+                               x:Name="ShowStatus" Visibility="Collapsed"
+                               FontSize="18" FontWeight="SemiBold" />
+                    <ComboBox Grid.Column="4"
+                              FontSize="17"
+                              modern:ControlHelper.CornerRadius="5"
+                              modern:ControlHelper.PlaceholderText="Выберите статус"
+                              x:Name="EditOrdersStatus"
+                              SelectedValuePath="Id"
+                              DisplayMemberPath="StatusName"
+                              Width="300"
+                              BorderBrush="DimGray" />
+                </Grid>
+                <Grid Grid.Row="4" Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="300" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Доставка:"
+                               FontSize="18" FontWeight="SemiBold" />
+                    <ComboBox Grid.Column="1"
+                              FontSize="17"
+                              modern:ControlHelper.CornerRadius="5"
+                              modern:ControlHelper.PlaceholderText="Выберите тип доставки"
+                              x:Name="EditOrdersDelivery"
+                              SelectedValuePath="Id"
+                              DisplayMemberPath="DeliveryName"
+                              Width="300"
+                              BorderBrush="DimGray"
+                              SelectionChanged="SelectionDelivery" />
+                </Grid>
+                <Grid Grid.Row="5" Margin="0,10,0,0" x:Name="EditAddressName">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Адрес доставки:"
+                               FontSize="18" FontWeight="SemiBold" />
+                </Grid>
+                <Grid Grid.Row="6" Margin="0,10,0,0" x:Name="EditAddressData">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="440" />
+                    </Grid.ColumnDefinitions>
+                    <ui:TextBox Grid.Column="0"
+                                AcceptsReturn="True"
+                                MinHeight="60"
+                                VerticalAlignment="Top"
+                                TextWrapping="Wrap"
+                                FontSize="17"
+                                Icon="LocationAddRight20"
+                                IconFilled="True"
+                                x:Name="EditOrdersAddress" />
+                </Grid>
+                <Grid Grid.Row="7" Margin="0,10,0,0">
+                    <Border BorderBrush="Gray"
+                            BorderThickness="0,0,0,1">
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="8" Margin="0,10,0,0">
+                    <TextBlock Grid.Column="0"
+                               Text="Автомобили:"
+                               FontSize="18" FontWeight="SemiBold" />
+                </Grid>
+                <Grid Grid.Row="9" Margin="0,10,0,0" x:Name="ListCars">
+                    <!-- Таблица с автомобилями -->
+                    <DataGrid Grid.Column="0" x:Name="AddedCarsList"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              HeadersVisibility="Column"
+                              BorderThickness="1"
+                              BorderBrush="LightGray"
+                              FontSize="16"
+                              AlternationCount="20"
+                              RowHeight="30" MaxHeight="190"
+                              ScrollViewer.CanContentScroll="False"
+                              ItemsSource="{Binding SelectedOrderCars}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="№"
+                                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=AlternationIndex, Converter={StaticResource IndexConverter}}" />
+                            <DataGridTextColumn Header="Марка" Binding="{Binding CarMarkNavigation.MarkName}" />
+                            <DataGridTextColumn Header="Модель" Binding="{Binding CarModelNavigation.ModelName}" />
+                            <DataGridTextColumn Header="Цвет" Binding="{Binding CarColorNavigation.ColorName}" />
+                            <DataGridTextColumn Header="Дата производства"
+                                                Binding="{Binding CarDate, StringFormat='{}{0:dd.MM.yyyy}'}" />
+                            <DataGridTextColumn Header="Цена, ₽"
+                                                Binding="{Binding CarPrice, Converter={StaticResource PriceConverter}}" />
+                            <DataGridTemplateColumn Header="">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="👁️"
+                                                Click="ShowCar"
+                                                Background="Transparent"
+                                                Foreground="DodgerBlue"
+                                                FontWeight="SemiBold"
+                                                Padding="10,0"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"
+                                                Tag="{Binding}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="❎"
+                                                Click="RemoveCarButton_Click"
+                                                Background="Transparent"
+                                                BorderBrush="DodgerBlue"
+                                                Foreground="Red"
+                                                FontWeight="SemiBold"
+                                                Padding="10,0"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"
+                                                Tag="{Binding}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                        <!-- Стиль для заголовка -->
+                        <DataGrid.ColumnHeaderStyle>
+                            <StaticResource ResourceKey="GreyHeader" />
+                        </DataGrid.ColumnHeaderStyle>
+                        <!-- Стиль для строк -->
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="LightGray" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="SkyBlue" />
+                                        <Setter Property="Opacity" Value="0.8"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                    </DataGrid>
+                </Grid>
+
+                <Grid Grid.Row="10" Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Grid.Column="0"
+                              FontSize="17"
+                              modern:ControlHelper.CornerRadius="5"
+                              modern:ControlHelper.PlaceholderText="Выберите автомобиль"
+                              x:Name="AvailableCarsComboBox"
+                              SelectedValuePath="CarId"
+                              Width="300"
+                              BorderBrush="DimGray">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource CarNameConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ui:Button Grid.Column="1"
+                               FontSize="17"
+                               Background="DodgerBlue"
+                               Content="Добавить"
+                               modern:ControlHelper.CornerRadius="5"
+                               Appearance="Primary"
+                               Click="AddCarButton_Click"
+                               Margin="10,0" />
+                </Grid>
+                <Grid Grid.Row="11" Margin="0,10,0,0">
+                    <Border BorderBrush="Gray"
+                            BorderThickness="0,0,0,1">
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="12" Margin="0,20,0,0">
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <ui:Button FontSize="18"
+                                   Background="DodgerBlue"
+                                   Content="Действие"
+                                   modern:ControlHelper.CornerRadius="5"
+                                   Appearance="Primary"
+                                   x:Name="SaveButton"
+                                   Margin="20,0,0,0"
+                                   Click="SaveButton_Click" />
+                        <ui:Button FontSize="18"
+                                   Background="DodgerBlue"
+                                   Content="Отмена"
+                                   Icon="Dismiss24"
+                                   modern:ControlHelper.CornerRadius="5"
+                                   Appearance="Primary"
+                                   Margin="20,0,0,0"
+                                   Click="CancelButton_Click" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </modern:SimpleStackPanel>
+    </Grid>
+</ui:UiWindow>

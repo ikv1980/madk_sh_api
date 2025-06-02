@@ -1,0 +1,209 @@
+﻿<Page x:Class="Project.Views.Pages.UserPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      mc:Ignorable="d"
+      Title="UserPage">
+    <StackPanel>
+        <Grid Margin="20">
+            <!-- Основная структура -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <!-- Имя пользователя -->
+            <TextBlock Grid.Row="0"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Left"
+                       Text="{Binding FullName}"
+                       Margin="0,0,0,50" />
+            <!-- Личная информация -->
+            <TextBlock Grid.Row="1"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Left"
+                       Text="Служебная информация:"
+                       TextDecorations="Underline"
+                       Margin="0,5" />
+            <Grid Grid.Row="2" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="200" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Логин:"
+                           Grid.Row="0" Grid.Column="0"
+                           FontSize="18" FontWeight="SemiBold"
+                           VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Login}"
+                           Grid.Row="0" Grid.Column="1"
+                           FontSize="18" />
+            </Grid>
+            <Grid Grid.Row="3" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="250" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Пароль:"
+                           Grid.Column="0"
+                           FontSize="18" FontWeight="SemiBold"
+                           VerticalAlignment="Center" />
+                <ui:PasswordBox
+                    Grid.Column="1"
+                    PlaceholderText="Введите новый пароль"
+                    FontSize="16"
+                    Icon="LockClosed16"
+                    IconFilled="True"
+                    PasswordChar="•"
+                    ClearButtonEnabled="False"
+                    x:Name="NewPasswordBox" />
+            </Grid>
+            <Grid Grid.Row="4" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="250" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="E-mail:"
+                           Grid.Column="0"
+                           FontSize="18" FontWeight="SemiBold"
+                           VerticalAlignment="Center" />
+                <ui:TextBox Text="{Binding UsersEmail}"
+                            Grid.Column="1"
+                            FontSize="16"
+                            Icon="Mail16"
+                            IconFilled="True"
+                            x:Name="NewEmailTextBox" />
+            </Grid>
+            <Grid Grid.Row="5" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="250" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Телефон:"
+                           Grid.Column="0"
+                           FontSize="18" FontWeight="SemiBold"
+                           VerticalAlignment="Center" />
+                <Border Grid.Column="1"
+                        Background="White"
+                        BorderBrush="LightGray"
+                        BorderThickness="1,1,1,0"
+                        CornerRadius="2"
+                        VerticalAlignment="Center">
+                    <Border.Effect>
+                        <DropShadowEffect Color="DarkGray" Direction="270" BlurRadius="0" ShadowDepth="1" />
+                    </Border.Effect>
+                    <xctk:MaskedTextBox Text="{Binding Phone}"
+                                        Mask="+70000000000"
+                                        FontSize="16"
+                                        BorderThickness="0"
+                                        Padding="5"
+                                        x:Name="NewPhoneTextBox"
+                                        HorizontalAlignment="Stretch" />
+                </Border>
+            </Grid>
+            <Grid Grid.Row="6" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="200" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="День рождения:"
+                           Grid.Column="0"
+                           FontSize="18" FontWeight="SemiBold"
+                           VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Birthday}"
+                           Grid.Column="1"
+                           FontSize="18" />
+            </Grid>
+            <!-- Служебная информация -->
+            <TextBlock Grid.Row="7"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Left"
+                       Text="Личная информация:"
+                       TextDecorations="Underline"
+                       Margin="0,30,0,5" />
+            <Grid Grid.Row="8" Margin="0,10,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="200" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Департамент:"
+                           Grid.Column="0"
+                           FontSize="18" FontWeight="SemiBold"
+                           VerticalAlignment="Center" />
+                <TextBlock Text="{Binding DepartmentId}"
+                           Grid.Column="1"
+                           FontSize="18" />
+            </Grid>
+            <Grid Grid.Row="9" Margin="0,10,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="200" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Должность:"
+                           Grid.Column="0"
+                           FontSize="18" FontWeight="SemiBold"
+                           VerticalAlignment="Center" />
+                <TextBlock Text="{Binding PositionId}"
+                           Grid.Column="1"
+                           FontSize="18" />
+            </Grid>
+            <Grid Grid.Row="10" Margin="0,10,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="200" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Дата приема:"
+                           Grid.Column="0"
+                           FontSize="18" FontWeight="SemiBold"
+                           VerticalAlignment="Center" />
+                <TextBlock Text="{Binding StartWork}"
+                           Grid.Column="1"
+                           FontSize="18" />
+            </Grid>
+            <Grid Grid.Row="11" Margin="0,10,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="200" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Текущий статус:"
+                           Grid.Column="0"
+                           FontSize="18" FontWeight="SemiBold"
+                           VerticalAlignment="Center" />
+                <TextBlock Text="{Binding StatusId}"
+                           Grid.Column="1"
+                           FontSize="18" />
+            </Grid>
+            <Grid Grid.Row="12" Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="200" />
+                </Grid.ColumnDefinitions>
+                <ui:Button Content="Сохранить"
+                           Grid.Column="0"
+                           HorizontalAlignment="Stretch"
+                           Appearance="Primary"
+                           FontSize="18"
+                           Click="UpdateButton_Click"
+                           x:Name="UpdateButton"
+                           Visibility="Hidden"
+                           Background="DodgerBlue" />
+            </Grid>
+        </Grid>
+    </StackPanel>
+</Page>

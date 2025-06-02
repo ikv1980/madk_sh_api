@@ -1,0 +1,158 @@
+﻿{
+   "CodeGenerationMode": 3,
+   "ContextClassName": "Db",
+   "ContextNamespace": "Models",
+   "FilterSchemas": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": "Models",
+   "OutputContextPath": "Models",
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "Project",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "cache",
+         "ObjectType": 0
+      },
+      {
+         "Name": "cache_locks",
+         "ObjectType": 0
+      },
+      {
+         "Name": "car_colors",
+         "ObjectType": 0
+      },
+      {
+         "Name": "car_countries",
+         "ObjectType": 0
+      },
+      {
+         "Name": "car_mark_model_countries",
+         "ObjectType": 0
+      },
+      {
+         "Name": "car_marks",
+         "ObjectType": 0
+      },
+      {
+         "Name": "car_models",
+         "ObjectType": 0
+      },
+      {
+         "Name": "car_photos",
+         "ObjectType": 0
+      },
+      {
+         "Name": "car_types",
+         "ObjectType": 0
+      },
+      {
+         "Name": "cars",
+         "ObjectType": 0
+      },
+      {
+         "Name": "clients",
+         "ObjectType": 0
+      },
+      {
+         "Name": "deliveries",
+         "ObjectType": 0
+      },
+      {
+         "Name": "failed_jobs",
+         "ObjectType": 0
+      },
+      {
+         "Name": "job_batches",
+         "ObjectType": 0
+      },
+      {
+         "Name": "jobs",
+         "ObjectType": 0
+      },
+      {
+         "Name": "migrations",
+         "ObjectType": 0
+      },
+      {
+         "Name": "order_cars",
+         "ObjectType": 0
+      },
+      {
+         "Name": "order_statuses",
+         "ObjectType": 0
+      },
+      {
+         "Name": "orders",
+         "ObjectType": 0
+      },
+      {
+         "Name": "password_reset_tokens",
+         "ObjectType": 0
+      },
+      {
+         "Name": "payments",
+         "ObjectType": 0
+      },
+      {
+         "Name": "personal_access_tokens",
+         "ObjectType": 0
+      },
+      {
+         "Name": "sessions",
+         "ObjectType": 0
+      },
+      {
+         "Name": "statuses",
+         "ObjectType": 0
+      },
+      {
+         "Name": "user_department_positions",
+         "ObjectType": 0
+      },
+      {
+         "Name": "user_departments",
+         "ObjectType": 0
+      },
+      {
+         "Name": "user_positions",
+         "ObjectType": 0
+      },
+      {
+         "Name": "user_statuses",
+         "ObjectType": 0
+      },
+      {
+         "Name": "users",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": true,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false
+}

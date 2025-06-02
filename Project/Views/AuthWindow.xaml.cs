@@ -33,7 +33,7 @@ namespace Project.Views
             //string enteredPassword = _helper.HashPassword(PasswordBox.Password);
 
             string login = "admin";
-            string enteredPassword = _helper.HashPassword("Kostik80");
+            string enteredPassword = _helper.HashPassword("kostik80");
 
             var user = await DbUtils.db.Users
                 .Where(u => u.Login == login)
@@ -54,7 +54,15 @@ namespace Project.Views
                 }
 
                 // Проверяем статус пользователя
-                if (user.StatusId == null || user.StatusId == 2)
+                if (user.StatusId == null)
+                {
+                    MessageBox.Show(
+                        $"Ваш аккаунт не активирован.\nОбратитесь к администратору.",
+                        "Ошибка авторизации", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                
+                if (user.StatusId == 2)
                 {
                     MessageBox.Show(
                         $"Ваш аккаунт заблокирован.\nСтатус в системе [{user.Status.StatusName}].\nОбратитесь к администратору.",
@@ -116,16 +124,13 @@ namespace Project.Views
             // Добавление нового пользователя в базу данных
             var newUser = new User
             {
+                // Обязательные поля
                 Login = login,
                 Password = password,
                 Firstname = name,
                 Surname = surname,
-                /*
-                DepartmentId = 1,
-                PositionId = 1,
-                StatusId = 1,
-                Permissions = "DefaultPermissions.User",
-                */
+                // Необязательные поля
+                Permissions = DefaultPermissions.User,
             };
 
             await Task.Run(() =>

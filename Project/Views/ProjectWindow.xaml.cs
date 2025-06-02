@@ -53,17 +53,17 @@ namespace Project.Views
                         SettingTab.Visibility = visibility;
                         break;
                     case "dict":
-                        Directoryes.Visibility = visibility;
+                        Directories.Visibility = visibility;
                         break;
                 }
             }
 
             // Доступ к справочникам
-            foreach (var directoryesPermission in Global.ParsedPermissions.Directoryes)
+            foreach (var directoriesPermission in Global.ParsedPermissions.Directories)
             {
-                var visibility = directoryesPermission.Permissions.Read ? Visibility.Visible : Visibility.Collapsed;
+                var visibility = directoriesPermission.Permissions.Read ? Visibility.Visible : Visibility.Collapsed;
 
-                switch (directoryesPermission.Name.ToLower())
+                switch (directoriesPermission.Name.ToLower())
                 {
                     // для Заказов
                     case "order":
@@ -121,7 +121,7 @@ namespace Project.Views
                         break;
                     // по умолчанию
                     default:
-                        Console.WriteLine($"Unknown directory: {directoryesPermission.Name}");
+                        Console.WriteLine($"Unknown directory: {directoriesPermission.Name}");
                         break;
                 }
             }

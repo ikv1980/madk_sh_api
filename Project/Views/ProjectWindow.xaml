@@ -93,7 +93,7 @@
                 <TabItem Visibility="Collapsed">
                 </TabItem>
                 <!-- Вкладка Справочники -->
-                <TabItem x:Name="Directoryes"
+                <TabItem x:Name="Directories"
                          MouseUp="Directoryes_MouseUp"
                          FocusVisualStyle="{x:Null}">
                     <TabItem.Header>
@@ -103,10 +103,10 @@
                         </StackPanel>
                     </TabItem.Header>
                     <Popup x:Name="SubMenuPopup"
-                           PlacementTarget="{Binding ElementName=Directoryes}" StaysOpen="False">
+                           PlacementTarget="{Binding ElementName=Directories}" StaysOpen="False">
                         <StackPanel
                             Background="White"
-                            Width="{Binding ActualWidth, ElementName=Directoryes}">
+                            Width="{Binding ActualWidth, ElementName=Directories}">
                             <!-- Кнопка "Заказы" с вложенными кнопками -->
                             <Expander
                                 x:Name="OrdersExpander"

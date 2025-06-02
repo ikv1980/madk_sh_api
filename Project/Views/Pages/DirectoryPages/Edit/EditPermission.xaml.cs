@@ -53,7 +53,7 @@ namespace Project.Views
             }
 
             // Отображение справочников
-            foreach (var directory in Global.ParsedPermissions.Directoryes)
+            foreach (var directory in Global.ParsedPermissions.Directories)
             {
                 var stackPanel = new StackPanel
                 {
@@ -81,7 +81,7 @@ namespace Project.Views
         {
             // Получаем текущие права из интерфейса
             var tabs = Global.ParsedPermissions.Tabs;
-            var directories = Global.ParsedPermissions.Directoryes;
+            var directories = Global.ParsedPermissions.Directories;
 
             // Обновляем права на основе чекбоксов
             for (int i = 0; i < TabsList.Items.Count; i++)

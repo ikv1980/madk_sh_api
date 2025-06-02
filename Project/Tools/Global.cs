@@ -34,7 +34,7 @@ namespace Project.Tools
                     }
 
                     // Проверка на наличие справочников
-                    if (ParsedPermissions?.Directoryes == null || ParsedPermissions.Directoryes.Count == 0)
+                    if (ParsedPermissions?.Directories == null || ParsedPermissions.Directories.Count == 0)
                     {
                         MessageBox.Show("JSON разобран, но справочники отсутствуют.", "Отладка",
                             MessageBoxButton.OK,
@@ -46,7 +46,7 @@ namespace Project.Tools
                     ParsedPermissions = new UserPermissions
                     {
                         Tabs = new List<TabPermission>(),
-                        Directoryes = new List<DirectoryPermission>()
+                        Directories = new List<DirectoryPermission>()
                     };
                     MessageBox.Show($"Ошибка парсинга JSON: {ex.Message}\nJSON: {user.Permissions}",
                         "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -95,7 +95,7 @@ namespace Project.Tools
                 return false;
             }
 
-            var tabPermission = ParsedPermissions.Directoryes.FirstOrDefault(dict => dict.Name == dictName);
+            var tabPermission = ParsedPermissions.Directories.FirstOrDefault(dict => dict.Name == dictName);
 
             if (tabPermission != null)
             {

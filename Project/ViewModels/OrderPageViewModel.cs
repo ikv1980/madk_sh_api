@@ -91,6 +91,12 @@ namespace Project.ViewModels
                 var cars = DbUtils.db.OrderCars
                     .Include(m => m.Car)
                     .ThenInclude(c => c.MarkModelCountry)
+                    .ThenInclude(mmc => mmc.Mark)
+                    .Include(m => m.Car)
+                    .ThenInclude(c => c.MarkModelCountry)
+                    .ThenInclude(mmc => mmc.Model)
+                    .Include(m => m.Car)
+                    .ThenInclude(c => c.Color)
                     .Where(m => m.OrderId == SelectedOrder.Id)
                     .Select(m => m.Car)
                     .ToList();

@@ -137,7 +137,7 @@
                                     Binding="{Binding OrdersData, StringFormat='{}{0:dd.MM.yyyy}'}" />
                 <DataGridTextColumn Header="Тип оплаты" Binding="{Binding OrdersPaymentNavigation.PaymentName}" />
                 <DataGridTextColumn Header="Тип доставки" Binding="{Binding OrdersDeliveryNavigation.DeliveryName}" />
-                <DataGridTextColumn Header="Адрес доставки" Binding="{Binding OrdersAddress}" />
+                <DataGridTextColumn Header="Адрес доставки" Binding="{Binding DeliveryAddress}" />
                 <DataGridTextColumn Header="Статус"
                                     Binding="{Binding Id, Converter={StaticResource LastStatusConverter}}" />
                 <DataGridTextColumn Header="ИТОГО"

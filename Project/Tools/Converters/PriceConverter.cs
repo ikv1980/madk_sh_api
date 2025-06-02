@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows.Data;
 
 namespace Project.Tools
@@ -8,10 +7,9 @@ namespace Project.Tools
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is int price)
+            if (value is decimal price)
             {
-                var price_str = price.ToString("N0", culture) + " ₽";
-                return price_str;
+                return price.ToString("N2", culture) + " ₽";
             }
 
             return "0 ₽";

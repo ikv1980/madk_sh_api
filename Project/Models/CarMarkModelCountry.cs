@@ -19,8 +19,6 @@ public partial class CarMarkModelCountry
 
     public DateTime? UpdatedAt { get; set; }
 
-    public virtual ICollection<Car> Cars { get; set; } = new List<Car>();
-
     public virtual CarCountry Country { get; set; }
 
     public virtual CarMark Mark { get; set; }

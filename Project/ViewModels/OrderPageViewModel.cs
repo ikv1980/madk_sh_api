@@ -90,10 +90,8 @@ namespace Project.ViewModels
                 // Загрузка автомобилей
                 var cars = DbUtils.db.OrderCars
                     .Include(m => m.Car)
-                    .ThenInclude(c => c.MarkModelCountry)
                     .ThenInclude(mmc => mmc.Mark)
                     .Include(m => m.Car)
-                    .ThenInclude(c => c.MarkModelCountry)
                     .ThenInclude(mmc => mmc.Model)
                     .Include(m => m.Car)
                     .ThenInclude(c => c.Color)

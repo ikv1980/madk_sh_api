@@ -9,7 +9,11 @@ public partial class Car
 {
     public ulong Id { get; set; }
 
-    public ulong MarkModelCountryId { get; set; }
+    public ulong MarkId { get; set; }
+
+    public ulong ModelId { get; set; }
+
+    public ulong CountryId { get; set; }
 
     public ulong TypeId { get; set; }
 
@@ -50,7 +54,11 @@ public partial class Car
 
     public virtual CarColor Color { get; set; }
 
-    public virtual CarMarkModelCountry MarkModelCountry { get; set; }
+    public virtual CarCountry Country { get; set; }
+
+    public virtual CarMark Mark { get; set; }
+
+    public virtual CarModel Model { get; set; }
 
     public virtual ICollection<OrderCar> OrderCars { get; set; } = new List<OrderCar>();
 

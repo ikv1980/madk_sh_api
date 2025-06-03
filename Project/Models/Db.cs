@@ -131,7 +131,11 @@ public partial class Db : DbContext
 
             entity.HasIndex(e => e.ColorId, "cars_color_id_foreign");
 
-            entity.HasIndex(e => e.MarkModelCountryId, "cars_mark_model_country_id_foreign");
+            entity.HasIndex(e => e.CountryId, "cars_country_id_foreign");
+
+            entity.HasIndex(e => e.MarkId, "cars_mark_id_foreign");
+
+            entity.HasIndex(e => e.ModelId, "cars_model_id_foreign");
 
             entity.HasIndex(e => e.Pts, "cars_pts_unique").IsUnique();
 
@@ -149,6 +153,9 @@ public partial class Db : DbContext
             entity.Property(e => e.ColorId)
                 .HasColumnType("bigint(20) unsigned")
                 .HasColumnName("color_id");
+            entity.Property(e => e.CountryId)
+                .HasColumnType("bigint(20) unsigned")
+                .HasColumnName("country_id");
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
@@ -158,9 +165,12 @@ public partial class Db : DbContext
             entity.Property(e => e.DeletedAt)
                 .HasColumnType("timestamp")
                 .HasColumnName("deleted_at");
-            entity.Property(e => e.MarkModelCountryId)
+            entity.Property(e => e.MarkId)
                 .HasColumnType("bigint(20) unsigned")
-                .HasColumnName("mark_model_country_id");
+                .HasColumnName("mark_id");
+            entity.Property(e => e.ModelId)
+                .HasColumnType("bigint(20) unsigned")
+                .HasColumnName("model_id");
             entity.Property(e => e.Price)
                 .HasPrecision(10, 2)
                 .HasComment("цена")
@@ -186,10 +196,17 @@ public partial class Db : DbContext
                 .HasForeignKey(d => d.ColorId)
                 .HasConstraintName("cars_color_id_foreign");
 
-            entity.HasOne(d => d.MarkModelCountry).WithMany(p => p.Cars)
-                .HasForeignKey(d => d.MarkModelCountryId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("cars_mark_model_country_id_foreign");
+            entity.HasOne(d => d.Country).WithMany(p => p.Cars)
+                .HasForeignKey(d => d.CountryId)
+                .HasConstraintName("cars_country_id_foreign");
+
+            entity.HasOne(d => d.Mark).WithMany(p => p.Cars)
+                .HasForeignKey(d => d.MarkId)
+                .HasConstraintName("cars_mark_id_foreign");
+
+            entity.HasOne(d => d.Model).WithMany(p => p.Cars)
+                .HasForeignKey(d => d.ModelId)
+                .HasConstraintName("cars_model_id_foreign");
 
             entity.HasOne(d => d.Type).WithMany(p => p.Cars)
                 .HasForeignKey(d => d.TypeId)

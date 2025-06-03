@@ -75,7 +75,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             // Загрузка связанных автомобилей
             var carsInOrder = DbUtils.db.OrderCars
                 .Include(m => m.Car)
-                .ThenInclude(c => c.MarkModelCountry)
+                
                 .Include(m => m.Car.Color)
                 .Include(m => m.Car.Type)
                 .Where(moc => moc.OrderId == item.Id)
@@ -413,10 +413,8 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             // Фильтруем доступные автомобили
             AvailableCarsComboBox.ItemsSource = DbUtils.db.Cars
                 .Where(c => c.DeletedAt == null && (c.Block == 0))
-                .Include(c => c.MarkModelCountry)
-                .ThenInclude(mmc => mmc.Mark)
-                .Include(c => c.MarkModelCountry)
-                .ThenInclude(mmc => mmc.Model)
+                .Include(m => m.Mark)
+                .Include(m => m.Model)
                 .Include(c => c.Color)
                 .Include(c => c.Type)
                 .AsEnumerable()

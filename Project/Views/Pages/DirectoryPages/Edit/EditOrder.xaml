@@ -239,8 +239,8 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="№"
                                                 Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=AlternationIndex, Converter={StaticResource IndexConverter}}" />
-                            <DataGridTextColumn Header="Марка" Binding="{Binding MarkModelCountry.Mark.MarkName}" />
-                            <DataGridTextColumn Header="Модель" Binding="{Binding MarkModelCountry.Model.ModelName}" />
+                            <DataGridTextColumn Header="Марка" Binding="{Binding Mark.MarkName}" />
+                            <DataGridTextColumn Header="Модель" Binding="{Binding Model.ModelName}" />
                             <DataGridTextColumn Header="Цвет" Binding="{Binding Color.ColorName}" />
                             <DataGridTextColumn Header="Дата производства"
                                                 Binding="{Binding CreatedAt, StringFormat='{}{0:dd.MM.yyyy}'}" />

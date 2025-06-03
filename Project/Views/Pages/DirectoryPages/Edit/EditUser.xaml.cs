@@ -54,7 +54,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             EditUsersMail.Text = item.Email;
             EditUsersDepartment.SelectedItem =
                 DbUtils.db.UserDepartments.FirstOrDefault(m => m.Id == item.DepartmentId);
-            EditUsersFunction.SelectedItem =
+            EditUsersPosition.SelectedItem =
                 DbUtils.db.UserPositions.FirstOrDefault(m => m.Id == item.PositionId);
             EditUsersStatus.SelectedItem =
                 DbUtils.db.UserStatuses.FirstOrDefault(m => m.Id == item.StatusId);
@@ -165,7 +165,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         private void Init()
         {
             EditUsersDepartment.ItemsSource = DbUtils.db.UserDepartments.Where(x => x.DeletedAt == null).ToList();
-            EditUsersFunction.ItemsSource = DbUtils.db.UserPositions.Where(x => x.DeletedAt == null).ToList();
+            EditUsersPosition.ItemsSource = DbUtils.db.UserPositions.Where(x => x.DeletedAt == null).ToList();
             EditUsersStatus.ItemsSource = DbUtils.db.UserStatuses.Where(x => x.DeletedAt == null).ToList();
         }
 
@@ -250,7 +250,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             item.Email = EditUsersMail.Text.Trim();
             item.DepartmentId = (EditUsersDepartment.SelectedItem as UserDepartment)?.Id ??
                                    item.DepartmentId;
-            item.PositionId = (EditUsersFunction.SelectedItem as UserPosition)?.Id ?? item.PositionId;
+            item.PositionId = (EditUsersPosition.SelectedItem as UserPosition)?.Id ?? item.PositionId;
             item.StartWork = EditUsersStartWork.SelectedDate.HasValue
                 ? DateOnly.FromDateTime(EditUsersStartWork.SelectedDate.Value)
                 : DateOnly.FromDateTime(DateTime.Now);
@@ -278,18 +278,18 @@ namespace Project.Views.Pages.DirectoryPages.Edit
 
         private void SelectionDepartment(object sender, SelectionChangedEventArgs e)
         {
-            EditUsersFunction.IsEnabled = true;
+            EditUsersPosition.IsEnabled = true;
             var selectDepartment = EditUsersDepartment.SelectedItem as UserDepartment;
             if (selectDepartment != null)
             {
-                EditUsersFunction.ItemsSource = DbUtils.db.UserDepartmentPositions
+                EditUsersPosition.ItemsSource = DbUtils.db.UserDepartmentPositions
                     .Where(x => x.DepartmentId == selectDepartment.Id)
                     .Select(x => x.PositionId)
                     .ToList();
             }
             else
             {
-                EditUsersFunction.ItemsSource = null;
+                EditUsersPosition.ItemsSource = null;
             }
         }
     }

@@ -32,7 +32,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             if (item == null) throw new ArgumentNullException(nameof(item));
 
             _itemId = item.Id;
-            EditFunctionName.Text = item.PositionName;
+            EditPositionName.Text = item.PositionName;
 
             // изменяем диалоговое окно, в зависимости от нажатой кнопки
             if (button == "Change")
@@ -77,7 +77,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                 // Удаление
                 if (_isDeleteMode)
                 {
-                    item.DeletedAt = DateTime.Now; // DbUtils.db.UsersFunctions.Remove(item);   
+                    item.DeletedAt = DateTime.Now; // DbUtils.db.UsersPosition.Remove(item);   
                 }
                 else
                 {
@@ -85,7 +85,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                         return;
 
                     // Изменение или добавление
-                    item.PositionName = EditFunctionName.Text.Trim();
+                    item.PositionName = EditPositionName.Text.Trim();
 
                     if (!_isEditMode)
                     {
@@ -113,7 +113,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         // Валидация данных
         private bool IsValidInput()
         {
-            var item = EditFunctionName.Text.Trim().ToLower();
+            var item = EditPositionName.Text.Trim().ToLower();
 
             if (string.IsNullOrWhiteSpace(item))
             {
@@ -124,7 +124,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
 
             if (DbUtils.db.UserPositions.Any(x => x.PositionName.Trim().ToLower() == item && x.Id != _itemId))
             {
-                MessageBox.Show($"Запись '{EditFunctionName.Text}' уже существует в базе.", "Ошибка",
+                MessageBox.Show($"Запись '{EditPositionName.Text}' уже существует в базе.", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
@@ -135,7 +135,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         // События после загрузки окна
         private void UiWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            EditFunctionName.Focus();
+            EditPositionName.Focus();
         }
     }
 }

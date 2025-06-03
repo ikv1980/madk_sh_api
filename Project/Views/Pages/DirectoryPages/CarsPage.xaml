@@ -112,9 +112,9 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="№"
                                     Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=AlternationIndex, Converter={StaticResource IndexConverter}}" />
-                <DataGridTextColumn Header="Марка" Binding="{Binding MarkModelCountry.Mark.MarkName}" />
-                <DataGridTextColumn Header="Модель" Binding="{Binding MarkModelCountry.Model.ModelName}" />
-                <DataGridTextColumn Header="Страна" Binding="{Binding MarkModelCountry.Country.CountryName}" />
+                <DataGridTextColumn Header="Марка" Binding="{Binding Mark.MarkName}" />
+                <DataGridTextColumn Header="Модель" Binding="{Binding Model.ModelName}" />
+                <DataGridTextColumn Header="Страна" Binding="{Binding Country.CountryName}" />
                 <DataGridTextColumn Header="Тип кузова" Binding="{Binding Type.TypeName}" />
                 <DataGridTextColumn Header="VIN код" Binding="{Binding Vin}" />
                 <DataGridTextColumn Header="Номер ПТС" Binding="{Binding Pts}" />

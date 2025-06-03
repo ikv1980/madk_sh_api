@@ -44,11 +44,11 @@ namespace Project.Views.Pages.DirectoryPages.Edit
 
             // Установка значений в форму
             EditCarMark.SelectedItem =
-                DbUtils.db.CarMarks.FirstOrDefault(m => m.Id == item.MarkModelCountry.MarkId);
+                DbUtils.db.CarMarks.FirstOrDefault(m => m.Id == item.MarkId);
             EditCarModel.SelectedItem =
-                DbUtils.db.CarModels.FirstOrDefault(m => m.Id == item.MarkModelCountry.ModelId);
+                DbUtils.db.CarModels.FirstOrDefault(m => m.Id == item.ModelId);
             EditCarCountry.SelectedItem =
-                DbUtils.db.CarCountries.FirstOrDefault(m => m.Id == item.MarkModelCountry.CountryId);
+                DbUtils.db.CarCountries.FirstOrDefault(m => m.Id == item.CountryId);
             EditCarType.SelectedItem =
                 DbUtils.db.CarTypes.FirstOrDefault(m => m.Id == item.TypeId);
             EditCarColor.SelectedItem =
@@ -241,8 +241,9 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         // Обновление данных объекта
         private void UpdateItem(Car item)
         {
-            var selectedMMC = EditCarMark.SelectedItem as CarMarkModelCountry;
-            if (selectedMMC != null) item.MarkModelCountryId = selectedMMC.Id;
+            item.MarkId = (EditCarMark.SelectedItem as CarMark)?.Id ?? item.MarkId;
+            item.ModelId = (EditCarModel.SelectedItem as CarModel)?.Id ?? item.ModelId;
+            item.CountryId = (EditCarCountry.SelectedItem as CarCountry)?.Id ?? item.CountryId;
             item.TypeId = (EditCarType.SelectedItem as CarType)?.Id ?? item.TypeId;
             item.ColorId = (EditCarColor.SelectedItem as CarColor)?.Id ?? item.ColorId;
             item.Vin = EditCarVin.Text.Trim().ToUpper();

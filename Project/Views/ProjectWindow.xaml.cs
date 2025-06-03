@@ -111,13 +111,13 @@ namespace Project.Views
                         UsersDepartmentButton.Visibility = visibility;
                         break;
                     case "userposition":
-                        UsersFunctionButton.Visibility = visibility;
+                        UsersPositionButton.Visibility = visibility;
                         break;
                     case "userstatus":
                         UsersStatusButton.Visibility = visibility;
                         break;
                     case "userdepartmentposition":
-                        MmDepartmentFunctionButton.Visibility = visibility;
+                        MmDepartmentPositionButton.Visibility = visibility;
                         break;
                     // по умолчанию
                     default:

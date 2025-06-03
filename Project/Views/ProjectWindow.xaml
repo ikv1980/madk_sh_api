@@ -237,7 +237,7 @@
                                         Tag="{x:Type direct:UserDepartmentsPage}"
                                         Click="SubMenuButton_Click" />
                                     <Button
-                                        x:Name="UsersFunctionButton"
+                                        x:Name="UsersPositionButton"
                                         Content="Должности"
                                         Tag="{x:Type direct:UserPositionsPage}"
                                         Click="SubMenuButton_Click" />
@@ -248,7 +248,7 @@
                                         Click="SubMenuButton_Click" />
                                     <Separator Background="Gainsboro" />
                                     <Button
-                                        x:Name="MmDepartmentFunctionButton"
+                                        x:Name="MmDepartmentPositionButton"
                                         Content="Отдел - Должность"
                                         Tag="{x:Type direct:UserDepartmentPositionsPage}"
                                         Click="SubMenuButton_Click" />

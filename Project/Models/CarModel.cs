@@ -18,4 +18,6 @@ public partial class CarModel
     public DateTime? UpdatedAt { get; set; }
 
     public virtual ICollection<CarMarkModelCountry> CarMarkModelCountries { get; set; } = new List<CarMarkModelCountry>();
+
+    public virtual ICollection<Car> Cars { get; set; } = new List<Car>();
 }

@@ -24,11 +24,11 @@ namespace Project.Tools
                     typeof(Car),
                     new List<string>
                     {
-                        "CarColorNavigation.ColorName",
-                        "CarCountryNavigation.CountryName",
-                        "CarMarkNavigation.MarkName",
-                        "CarModelNavigation.ModelName",
-                        "CarTypeNavigation.TypeName",
+                        "Color.ColorName",
+                        "Country.CountryName",
+                        "Mark.MarkName",
+                        "Model.ModelName",
+                        "Type.TypeName",
                     }
                 },
                 {
@@ -54,18 +54,18 @@ namespace Project.Tools
                     new List<string>
                     {
                         "Department.DepartmentName",
-                        "Function.PositionName",
+                        "Position.PositionName",
                     }
                 },
                 {
                     typeof(Order),
                     new List<string>
                     {
-                        "OrdersClientNavigation.ClientName",
-                        "OrdersDeliveryNavigation.DeliveryName",
-                        "OrdersPaymentNavigation.PaymentName",
-                        "OrdersUserNavigation.Firstname",
-                        "OrdersUserNavigation.Surname",
+                        "Client.ClientName",
+                        "Delivery.DeliveryName",
+                        "Payment.PaymentName",
+                        "User.Firstname",
+                        "User.Surname",
                     }
                 },
             };

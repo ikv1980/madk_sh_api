@@ -80,8 +80,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\Pages\DirectoryPages\Edit\EditDepartmentFunction.xaml.cs">
-      <DependentUpon>EditDepartmentFunction.xaml</DependentUpon>
+    <Compile Update="Views\Pages\DirectoryPages\Edit\EditDepartmentPosition.xaml.cs">
+      <DependentUpon>EditDepartmentPosition.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

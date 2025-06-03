@@ -1,4 +1,4 @@
-﻿<ui:UiWindow x:Class="Project.Views.Pages.DirectoryPages.Edit.EditDepartmentFunction"
+﻿<ui:UiWindow x:Class="Project.Views.Pages.DirectoryPages.Edit.EditDepartmentPosition"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -42,8 +42,8 @@
                 <ComboBox FontSize="17"
                           modern:ControlHelper.CornerRadius="5"
                           modern:ControlHelper.PlaceholderText="Выберите должность"
-                          x:Name="EditFunctionName"
-                          SelectedValuePath="FunctionId"
+                          x:Name="EditPositionName"
+                          SelectedValuePath="PositionId"
                           DisplayMemberPath="PositionName"
                           Width="300"
                           BorderBrush="DimGray" />
@@ -52,9 +52,9 @@
                            Margin="5,0"
                            Padding="0"
                            ToolTip="Добавление новой должности"
-                           x:Name="ButtonAddFunction"
+                           x:Name="ButtonAddPosition"
                            Visibility="Collapsed"
-                           Click="AddFunction_Click">
+                           Click="AddPosition_Click">
                     <Image Source="/Resources/ico/plus.png" Width="30" Height="30" />
                 </ui:Button>
             </StackPanel>

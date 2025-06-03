@@ -8,7 +8,7 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace Project.Views.Pages.DirectoryPages.Edit
 {
-    public partial class EditDepartmentFunction : UiWindow, IRefresh
+    public partial class EditDepartmentPosition : UiWindow, IRefresh
     {
         public event Action RefreshRequested;
         private readonly bool _isEditMode;
@@ -16,7 +16,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         private readonly ulong _itemId;
 
         // Конструктор для добавления данных
-        public EditDepartmentFunction()
+        public EditDepartmentPosition()
         {
             InitializeComponent();
             Init();
@@ -25,25 +25,25 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             Title = "Добавление данных";
             SaveButton.Content = "Добавить";
             SaveButton.Icon = SymbolRegular.AddCircle24;
-            EditFunctionName.Width = 255;
+            EditPositionName.Width = 255;
             EditDepartmentName.Width = 255;
-            ButtonAddFunction.Visibility = Visibility.Visible;
+            ButtonAddPosition.Visibility = Visibility.Visible;
             ButtonAddDepartment.Visibility = Visibility.Visible;
         }
 
         // Конструктор для изменения (удаления) данных
-        public EditDepartmentFunction(UserDepartmentPosition item, string button) : this()
+        public EditDepartmentPosition(UserDepartmentPosition item, string button) : this()
         {
             InitializeComponent();
             Init();
             _itemId = item.Id;
             EditDepartmentName.SelectedItem =
                 DbUtils.db.UserDepartments.FirstOrDefault(m => m.Id == item.DepartmentId);
-            EditFunctionName.SelectedItem =
+            EditPositionName.SelectedItem =
                 DbUtils.db.UserPositions.FirstOrDefault(m => m.Id == item.PositionId);
-            EditFunctionName.Width = 300;
+            EditPositionName.Width = 300;
             EditDepartmentName.Width = 300;
-            ButtonAddFunction.Visibility = Visibility.Collapsed;
+            ButtonAddPosition.Visibility = Visibility.Collapsed;
             ButtonAddDepartment.Visibility = Visibility.Collapsed;
 
             // изменяем диалоговое окно, в зависимости от нажатой кнопки
@@ -126,7 +126,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         private void Init()
         {
             EditDepartmentName.ItemsSource = DbUtils.db.UserDepartments.Where(x => x.DeletedAt == null).ToList();
-            EditFunctionName.ItemsSource = DbUtils.db.UserPositions.Where(x => x.DeletedAt == null).ToList();
+            EditPositionName.ItemsSource = DbUtils.db.UserPositions.Where(x => x.DeletedAt == null).ToList();
         }
 
         // Валидация данных
@@ -139,7 +139,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                 return false;
             }
 
-            if (EditFunctionName.SelectedItem == null)
+            if (EditPositionName.SelectedItem == null)
             {
                 MessageBox.Show("Не выбрана должность", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -148,7 +148,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
 
             if (DbUtils.db.UserDepartmentPositions.Any(x =>
                     x.DepartmentId == (ulong)EditDepartmentName.SelectedValue &&
-                    x.PositionId == (ulong)EditFunctionName.SelectedValue &&
+                    x.PositionId == (ulong)EditPositionName.SelectedValue &&
                     x.Id != _itemId))
             {
                 MessageBox.Show("Такая запись уже существует в базе данных.", "Ошибка",
@@ -163,20 +163,20 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         private void UpdateItem(UserDepartmentPosition item)
         {
             item.DepartmentId = (EditDepartmentName.SelectedItem as UserDepartment)?.Id ?? item.DepartmentId;
-            item.PositionId = (EditFunctionName.SelectedItem as UserPosition)?.Id ?? item.PositionId;
+            item.PositionId = (EditPositionName.SelectedItem as UserPosition)?.Id ?? item.PositionId;
         }
 
         // События после загрузки окна
         private void UiWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            EditFunctionName.Focus();
+            EditPositionName.Focus();
         }
 
-        private void AddFunction_Click(object sender, RoutedEventArgs e)
+        private void AddPosition_Click(object sender, RoutedEventArgs e)
         {
-            var addFunction = new EditPosition();
+            var addPosition = new EditPosition();
             this.Close();
-            addFunction.ShowDialog();
+            addPosition.ShowDialog();
         }
 
         private void AddDepartment_Click(object sender, RoutedEventArgs e)

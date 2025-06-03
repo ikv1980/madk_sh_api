@@ -23,7 +23,7 @@
                         modern:ControlHelper.CornerRadius="5"
                         Icon="Save24"
                         IconFilled="False"
-                        x:Name="EditFunctionName" />
+                        x:Name="EditPositionName" />
             <TextBlock Text="Подтверждаете удаление данных?"
                        FontSize="16" FontWeight="SemiBold"
                        VerticalAlignment="Center"

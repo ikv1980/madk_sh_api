@@ -9,7 +9,7 @@
       xmlns:tools="clr-namespace:Project.Tools"
       xmlns:wind="clr-namespace:Project.Views.Pages.DirectoryPages.Edit"
       d:DesignHeight="450" d:DesignWidth="1100"
-      Title="MmMarkDepartmentFunctionPage">
+      Title="MmMarkDepartmentPositionPage">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -43,7 +43,7 @@
                         <MenuItem.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiBindingConverter}">
                                 <Binding RelativeSource="{RelativeSource Self}" />
-                                <Binding Source="{x:Type wind:EditDepartmentFunction}" />
+                                <Binding Source="{x:Type wind:EditDepartmentPosition}" />
                             </MultiBinding>
                         </MenuItem.CommandParameter>
                     </MenuItem>
@@ -53,7 +53,7 @@
                               Height="35"
                               Visibility="{Binding DataContext.FlagWriterVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}"
                               Command="{Binding DataContext.AddDialogButton, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}"
-                              CommandParameter="{x:Type wind:EditDepartmentFunction}" />
+                              CommandParameter="{x:Type wind:EditDepartmentPosition}" />
                     <MenuItem Header="Изменить"
                               Icon="✏️"
                               Tag="Change"
@@ -63,7 +63,7 @@
                         <MenuItem.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiBindingConverter}">
                                 <Binding RelativeSource="{RelativeSource Self}" />
-                                <Binding Source="{x:Type wind:EditDepartmentFunction}" />
+                                <Binding Source="{x:Type wind:EditDepartmentPosition}" />
                             </MultiBinding>
                         </MenuItem.CommandParameter>
                     </MenuItem>
@@ -76,7 +76,7 @@
                         <MenuItem.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiBindingConverter}">
                                 <Binding RelativeSource="{RelativeSource Self}" />
-                                <Binding Source="{x:Type wind:EditDepartmentFunction}" />
+                                <Binding Source="{x:Type wind:EditDepartmentPosition}" />
                             </MultiBinding>
                         </MenuItem.CommandParameter>
                     </MenuItem>
@@ -100,7 +100,7 @@
             <!-- Основной контент -->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Отдел" Binding="{Binding Department.DepartmentName}" />
-                <DataGridTextColumn Header="Должность" Binding="{Binding Function.PositionName}" />
+                <DataGridTextColumn Header="Должность" Binding="{Binding Position.PositionName}" />
             </DataGrid.Columns>
         </DataGrid>
         <!-- Блок навигации внизу -->

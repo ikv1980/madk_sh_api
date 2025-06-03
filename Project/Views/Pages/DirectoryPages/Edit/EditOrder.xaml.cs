@@ -6,12 +6,11 @@ using Project.Interfaces;
 using Project.Models;
 using Project.Tools;
 using Wpf.Ui.Common;
-using Wpf.Ui.Controls;
 using MessageBox = System.Windows.MessageBox;
 
 namespace Project.Views.Pages.DirectoryPages.Edit
 {
-    public partial class EditOrder : UiWindow, IRefresh
+    public partial class EditOrder : IRefresh
     {
         public event Action RefreshRequested;
         private readonly bool _isEditMode;
@@ -69,7 +68,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             var latestStatusId = item.OrderStatuses
                 .OrderByDescending(s => s.CreatedAt)
                 .FirstOrDefault()?.StatusId;
-            _currentStatus = (ulong)latestStatusId;
+            _currentStatus = (ulong)latestStatusId!;
             EditOrdersStatus.SelectedItem =
                 DbUtils.db.OrderStatuses.FirstOrDefault(m => m.Id == latestStatusId);
 
@@ -152,7 +151,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                     DbUtils.db.SaveChanges();
 
                     // Сохранение нового статуса заказа
-                    var selectedStatus = (EditOrdersStatus.SelectedItem as OrderStatus)?.Id;
+                    var selectedStatus = (EditOrdersStatus.SelectedItem as Status)?.Id;
 
                     if (selectedStatus == null)
                     {
@@ -172,6 +171,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                         {
                             OrderId = item.Id,
                             StatusId = selectedStatus.Value,
+                            CreatedAt = DateTime.Now
                         };
 
                         DbUtils.db.OrderStatuses.Add(newStatus);
@@ -220,7 +220,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         // Инициализация данных
         private void Init()
         {
-            EditOrdersClient.ItemsSource = DbUtils.db.Clients.Where(x => x.DeletedAt == null).ToList();
+            EditOrdersClient.ItemsSource = DbUtils.db.Clients.Where(x => x.DeletedAt == null && x.ClientStatus).ToList();
             // Только из Отдела продаж
             EditOrdersUsers.ItemsSource = DbUtils.db.Users.Where(x => x.DeletedAt == null && x.DepartmentId == 4).ToList();
             EditOrdersPayment.ItemsSource = DbUtils.db.Payments.Where(x => x.DeletedAt == null).ToList();
@@ -341,22 +341,6 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                 return;
             }
 
-            // Загружаем связанные данные перед добавлением
-            var fullCar = DbUtils.db.Cars
-                .Where(c => c.Id == selectedCar.Id)
-                .Select(c => new Car
-                {
-                    Id = c.Id,
-                    Vin = c.Vin,
-                    Pts = c.Pts,
-                    DateAt = c.DateAt,
-                    
-                    MarkModelCountry = c.MarkModelCountry,
-                    Type = c.Type,
-                    Color = c.Color,
-                })
-                .FirstOrDefault();
-
             SelectedOrderCars.Add(selectedCar);
 
             if (_itemId != 0UL)
@@ -413,7 +397,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                 if (carToUnblock != null)
                 {
                     carToUnblock.Block = 0;
-                    //фкDbUtils.db.SaveChanges();
+                    // DbUtils.db.SaveChanges();
                 }
             }
 
@@ -430,13 +414,16 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             AvailableCarsComboBox.ItemsSource = DbUtils.db.Cars
                 .Where(c => c.DeletedAt == null && (c.Block == 0))
                 .Include(c => c.MarkModelCountry)
-                .Include(c => c.ColorId)
-                .Include(c => c.TypeId)
+                .ThenInclude(mmc => mmc.Mark)
+                .Include(c => c.MarkModelCountry)
+                .ThenInclude(mmc => mmc.Model)
+                .Include(c => c.Color)
+                .Include(c => c.Type)
                 .AsEnumerable()
                 .Where(c => !selectedCarIds.Contains(c.Id))
                 .ToList();
         }
-
+        
         // Вызов окна для добавления нового клиента
         private void AddClient(object sender, RoutedEventArgs e)
         {
@@ -450,8 +437,11 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         {
             var selectedCar = AddedCarsList.SelectedItem as Car;
 
-            var showCar = new EditCar(selectedCar, "Show");
-            showCar.ShowDialog();
+            if (selectedCar != null)
+            {
+                var showCar = new EditCar(selectedCar, "Show");
+                showCar.ShowDialog();
+            }
         }
     }
 }

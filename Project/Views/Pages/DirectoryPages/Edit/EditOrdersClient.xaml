@@ -143,39 +143,11 @@
                         <ComboBoxItem Content="активный" Tag="1" />
                     </ComboBox>
                 </Grid>
-                <Grid Grid.Row="8" Margin="0,10,0,0">
-                    <Line X1="0" Y1="20" X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
-                          Y2="20"
-                          Stroke="LightGray" StrokeThickness="1" HorizontalAlignment="Stretch" />
-                </Grid>
-                <Grid Grid.Row="9" Margin="0,10,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="170" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Логин:"
-                               Grid.Column="0"
-                               FontSize="18" FontWeight="SemiBold"
-                               VerticalAlignment="Center" />
-                </Grid>
                 <Grid Grid.Row="10" Margin="0,10,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Пароль:"
-                               Grid.Column="0"
-                               FontSize="18" FontWeight="SemiBold"
-                               VerticalAlignment="Center" />
-                    <ui:PasswordBox
-                        Grid.Column="1"
-                        PlaceholderText="Введите новый пароль"
-                        FontSize="17"
-                        Icon="LockClosed16"
-                        IconFilled="True"
-                        PasswordChar="•"
-                        ClearButtonEnabled="False"
-                        x:Name="EditClientPassword" />
                 </Grid>
                 <Grid Grid.Row="11" Margin="0,10,0,0">
                     <TextBlock Text="Подтверждаете удаление данных?"

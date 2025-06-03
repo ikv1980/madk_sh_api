@@ -239,13 +239,13 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="№"
                                                 Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=AlternationIndex, Converter={StaticResource IndexConverter}}" />
-                            <DataGridTextColumn Header="Марка" Binding="{Binding CarMarkNavigation.MarkName}" />
-                            <DataGridTextColumn Header="Модель" Binding="{Binding CarModelNavigation.ModelName}" />
-                            <DataGridTextColumn Header="Цвет" Binding="{Binding CarColorNavigation.ColorName}" />
+                            <DataGridTextColumn Header="Марка" Binding="{Binding MarkModelCountry.Mark.MarkName}" />
+                            <DataGridTextColumn Header="Модель" Binding="{Binding MarkModelCountry.Model.ModelName}" />
+                            <DataGridTextColumn Header="Цвет" Binding="{Binding Color.ColorName}" />
                             <DataGridTextColumn Header="Дата производства"
-                                                Binding="{Binding CarDate, StringFormat='{}{0:dd.MM.yyyy}'}" />
+                                                Binding="{Binding CreatedAt, StringFormat='{}{0:dd.MM.yyyy}'}" />
                             <DataGridTextColumn Header="Цена, ₽"
-                                                Binding="{Binding CarPrice, Converter={StaticResource PriceConverter}}" />
+                                                Binding="{Binding Price, Converter={StaticResource PriceConverter}}" />
                             <DataGridTemplateColumn Header="">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

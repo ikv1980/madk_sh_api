@@ -26,7 +26,7 @@ namespace Project.Views
         // Доступ к вкладкам и справочникам пользователя
         private void SetAccess()
         {
-            if (Global.ParsedPermissions?.Tabs == null || Global.ParsedPermissions.Tabs.Count == 0)
+            if (Global.ParsedPermissions.Tabs == null || Global.ParsedPermissions.Tabs.Count == 0)
             {
                 MessageBox.Show("Разрешения пользователя не определены. Доступ ограничен.", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
@@ -69,54 +69,54 @@ namespace Project.Views
                     case "order":
                         OrdersClientButton.Visibility = visibility;
                         break;
-                    case "ordersclient":
+                    case "client":
                         OrdersClientButton.Visibility = visibility;
                         break;
-                    case "ordersdelivery":
+                    case "delivery":
                         OrdersDeliveryButton.Visibility = visibility;
                         break;
-                    case "orderspayment":
+                    case "payment":
                         OrdersPaymentButton.Visibility = visibility;
                         break;
-                    case "ordersstatus":
+                    case "orderstatus":
                         OrdersStatusButton.Visibility = visibility;
                         break;
                     // для Автомобилей
                     case "car":
                         CarsButton.Visibility = visibility;
                         break;
-                    case "carscountry":
+                    case "carcountry":
                         CarsCountryButton.Visibility = visibility;
                         break;
-                    case "carsmark":
+                    case "carmark":
                         CarsMarkButton.Visibility = visibility;
                         break;
-                    case "carsmodel":
+                    case "carmodel":
                         CarsModelButton.Visibility = visibility;
                         break;
-                    case "carstype":
+                    case "cartype":
                         CarsTypeButton.Visibility = visibility;
                         break;
-                    case "carscolor":
+                    case "carcolor":
                         CarsColorButton.Visibility = visibility;
                         break;
-                    case "mmmarkmodel":
+                    case "carmarkmodelcountry":
                         MmMarkModelButton.Visibility = visibility;
                         break;
                     // для Пользователей
                     case "user":
                         UsersButton.Visibility = visibility;
                         break;
-                    case "usersdepartment":
+                    case "userdepartment":
                         UsersDepartmentButton.Visibility = visibility;
                         break;
-                    case "usersfunction":
+                    case "userposition":
                         UsersFunctionButton.Visibility = visibility;
                         break;
-                    case "usersstatus":
+                    case "userstatus":
                         UsersStatusButton.Visibility = visibility;
                         break;
-                    case "mmdepartmentfunction":
+                    case "userdepartmentposition":
                         MmDepartmentFunctionButton.Visibility = visibility;
                         break;
                     // по умолчанию
@@ -160,17 +160,17 @@ namespace Project.Views
                 }
             }
 
-            TabItem selectedItem = MainTabControl.SelectedItem as TabItem;
+            TabItem? selectedItem = MainTabControl.SelectedItem as TabItem;
             if (selectedItem != null)
             {
                 // Проверяем, является ли Tag типом страницы
                 if (selectedItem.Tag is string pageTypeString)
                 {
-                    Type pageType = Type.GetType(pageTypeString);
+                    Type? pageType = Type.GetType(pageTypeString);
                     if (pageType != null && typeof(Page).IsAssignableFrom(pageType))
                     {
                         // Создаем страницу и устанавливаем ее как содержимое TabItem
-                        var page = (Page)Activator.CreateInstance(pageType);
+                        var page = (Page)Activator.CreateInstance(pageType)!;
                         MainContent.Content = page; // Устанавливаем содержимое в Frame
                     }
                 }
@@ -178,21 +178,6 @@ namespace Project.Views
                 {
                     this.Close();
                 }
-            }
-        }
-
-        // Выбор справочника
-        private void NavigationView_SelectionChanged(ModernWpf.Controls.NavigationView sender,
-            ModernWpf.Controls.NavigationViewSelectionChangedEventArgs args)
-        {
-            NavigationViewItem item = args.SelectedItem as NavigationViewItem;
-            if (item.Tag is Type pageType && typeof(System.Windows.Controls.Page).IsAssignableFrom(pageType))
-            {
-                MainContent.Content = (System.Windows.Controls.Page)Activator.CreateInstance(pageType);
-            }
-            else if (item.Tag != null)
-            {
-                this.Close();
             }
         }
 

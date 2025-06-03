@@ -4,18 +4,16 @@ using Project.Interfaces;
 using Project.Models;
 using Project.Tools;
 using Wpf.Ui.Common;
-using Wpf.Ui.Controls;
 using MessageBox = System.Windows.MessageBox;
 
 namespace Project.Views.Pages.DirectoryPages.Edit
 {
-    public partial class EditOrdersClient : UiWindow, IRefresh
+    public partial class EditOrdersClient : IRefresh
     {
         public event Action RefreshRequested;
         private readonly bool _isEditMode;
         private readonly bool _isDeleteMode;
         private readonly ulong _itemId;
-        private readonly string _oldPassword;
         private readonly ValidateField _validator;
 
         // Конструктор для добавления данных
@@ -43,7 +41,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             ClientDateRegistrationTextBlock.Text = item.CreatedAt?.ToString("dd.MM.yyyy") ?? DateTime.Now.ToString("dd.MM.yyyy");
             EditClientStatus.SelectedItem = EditClientStatus.Items
                 .Cast<ComboBoxItem>()
-                .FirstOrDefault(i => i.Tag.ToString() == (item.ClientStatus == true ? "1" : "0"));
+                .FirstOrDefault(i => i.Tag.ToString() == (item.ClientStatus ? "1" : "0"));
 
             // изменяем диалоговое окно, в зависимости от нажатой кнопки
             if (button == "Change")
@@ -147,15 +145,6 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             {
                 MessageBox.Show("Некорректный e-mail.", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
-            }
-
-            if (!string.IsNullOrWhiteSpace(EditClientPassword.Password.Trim()) &&
-                !_validator.IsValid(EditClientPassword.Password, "password"))
-            {
-                MessageBox.Show("Пароль должен содержать не менее 6 символов.", "Ошибка",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
                 return false;
             }
 

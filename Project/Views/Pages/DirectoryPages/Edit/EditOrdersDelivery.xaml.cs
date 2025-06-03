@@ -85,7 +85,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                         return;
 
                     // Изменение или добавление
-                    item.DeliveryName = EditDeliveryName.Text.Trim().ToLower();
+                    item.DeliveryName = EditDeliveryName.Text.Trim();
 
                     if (!_isEditMode)
                     {

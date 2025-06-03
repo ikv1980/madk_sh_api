@@ -85,7 +85,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                         return;
 
                     // Изменение или добавление
-                    item.PaymentName = EditPaymentName.Text.Trim().ToLower();
+                    item.PaymentName = EditPaymentName.Text.Trim();
 
                     if (!_isEditMode)
                     {

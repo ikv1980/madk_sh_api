@@ -10,6 +10,10 @@
       xmlns:wind="clr-namespace:Project.Views.Pages.DirectoryPages.Edit"
       d:DesignHeight="450" d:DesignWidth="1100"
       Title="CarsPage">
+    <Page.Resources>
+        <tools:IndexConverter x:Key="IndexConverter" />
+        <tools:PriceConverter x:Key="PriceConverter" />
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -30,6 +34,7 @@
                   BorderThickness="1"
                   BorderBrush="Gray"
                   FontSize="16"
+                  AlternationCount="1000"
                   ItemsSource="{Binding TableValue}">
             <DataGrid.Resources>
                 <!-- Контекстное меню -->
@@ -105,16 +110,19 @@
             </DataGrid.RowStyle>
             <!-- Основной контент -->
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Марка" Binding="{Binding CarMarkNavigation.MarkName}" />
-                <DataGridTextColumn Header="Модель" Binding="{Binding CarModelNavigation.ModelName}" />
-                <DataGridTextColumn Header="Страна" Binding="{Binding CarCountryNavigation.CountryName}" />
-                <DataGridTextColumn Header="Тип кузова" Binding="{Binding CarTypeNavigation.TypeName}" />
+                <DataGridTextColumn Header="№"
+                                    Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=AlternationIndex, Converter={StaticResource IndexConverter}}" />
+                <DataGridTextColumn Header="Марка" Binding="{Binding MarkModelCountry.Mark.MarkName}" />
+                <DataGridTextColumn Header="Модель" Binding="{Binding MarkModelCountry.Model.ModelName}" />
+                <DataGridTextColumn Header="Страна" Binding="{Binding MarkModelCountry.Country.CountryName}" />
+                <DataGridTextColumn Header="Тип кузова" Binding="{Binding Type.TypeName}" />
                 <DataGridTextColumn Header="VIN код" Binding="{Binding Vin}" />
                 <DataGridTextColumn Header="Номер ПТС" Binding="{Binding Pts}" />
                 <DataGridTextColumn Header="Дата производства"
-                                    Binding="{Binding CarDate, StringFormat='{}{0:dd.MM.yyyy}'}" />
-                <DataGridTextColumn Header="Цвет" Binding="{Binding CarColorNavigation.ColorName}" />
-                <DataGridTextColumn Header="Цена, ₽" Binding="{Binding CarPrice, StringFormat=N2}" />
+                                    Binding="{Binding DateAt, StringFormat='{}{0:dd.MM.yyyy}'}" />
+                <DataGridTextColumn Header="Цвет" Binding="{Binding Color.ColorName}" />
+                <DataGridTextColumn Header="Цена, ₽"
+                                    Binding="{Binding Price, Converter={StaticResource PriceConverter}}" />
                 <DataGridTextColumn Header="№ Заказа" Binding="{Binding Block}" />
             </DataGrid.Columns>
         </DataGrid>

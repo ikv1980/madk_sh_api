@@ -78,7 +78,7 @@ namespace Project.Views
                     case "payment":
                         OrdersPaymentButton.Visibility = visibility;
                         break;
-                    case "orderstatus":
+                    case "status":
                         OrdersStatusButton.Visibility = visibility;
                         break;
                     // для Автомобилей

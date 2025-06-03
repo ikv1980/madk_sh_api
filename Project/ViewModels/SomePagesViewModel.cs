@@ -114,20 +114,13 @@ namespace Project.ViewModels
                 TableValue = new ObservableCollection<TTable>(
                     values.Where(item =>
                     {
-                        // 1. Проверка свойства "Delete" на True(1)
-                        var deleteProperty = item.GetType().GetProperty("Delete");
-                        bool isNotDeleted = deleteProperty == null || !(bool)deleteProperty.GetValue(item);
+                        // 1. Проверка свойства "DeletedAt" на True(1)
+                        var isNotDeleted = !(item.GetType()
+                            .GetProperty("DeletedAt")?
+                            .GetValue(item) is DateTime);
 
-                        // 2. Проверка всех свойств объекта на значение "не определено"
-                        bool noUndefinedProperties = item.GetType().GetProperties()
-                            .All(prop =>
-                            {
-                                var value = prop.GetValue(item)?.ToString();
-                                return value != "Не определен";
-                            });
-
-                        // 3. Возвращаем только элементы, которые соответствуют обоим условиям
-                        return isNotDeleted && noUndefinedProperties;
+                        // 2. Возвращаем только элементы, которые соответствуют обоим условиям
+                        return isNotDeleted;
                     }));
             }
             catch (Exception ex)

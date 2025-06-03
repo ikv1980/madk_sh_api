@@ -9,7 +9,7 @@ namespace Project.Views.Pages.DirectoryPages
         public OrderStatusesPage()
         {
             InitializeComponent();
-            this.DataContext = new SomePagesViewModel<OrderStatus>();
+            this.DataContext = new SomePagesViewModel<Status>();
         }
     }
 }

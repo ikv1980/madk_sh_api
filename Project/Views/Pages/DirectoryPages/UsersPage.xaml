@@ -10,6 +10,9 @@
       xmlns:wind="clr-namespace:Project.Views.Pages.DirectoryPages.Edit"
       d:DesignHeight="450" d:DesignWidth="1100"
       Title="UsersPage">
+    <Page.Resources>
+        <tools:IndexConverter x:Key="IndexConverter" />
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -30,6 +33,7 @@
                   BorderThickness="1"
                   BorderBrush="Gray"
                   FontSize="16"
+                  AlternationCount="1000"
                   ItemsSource="{Binding TableValue}">
             <DataGrid.Resources>
                 <!-- Контекстное меню -->
@@ -108,6 +112,8 @@
             </DataGrid.RowStyle>
             <!-- Основной контент -->
             <DataGrid.Columns>
+                <DataGridTextColumn Header="№"
+                                    Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=AlternationIndex, Converter={StaticResource IndexConverter}}" />
                 <DataGridTextColumn Header="Логин" Binding="{Binding Login}" />
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" />
                 <DataGridTextColumn Header="Имя" Binding="{Binding Firstname}" />
@@ -122,7 +128,7 @@
                                     Binding="{Binding Birthday, StringFormat='{}{0:dd.MM.yyyy}'}" />
                 <DataGridTextColumn Header="Статус" Binding="{Binding Status.StatusName}" />
                 <DataGridTextColumn Header="Дата статуса"
-                                    Binding="{Binding UsersStatusChange, StringFormat='{}{0:dd.MM.yyyy}'}" />
+                                    Binding="{Binding StatusAt, StringFormat='{}{0:dd.MM.yyyy}'}" />
             </DataGrid.Columns>
         </DataGrid>
         <!-- Блок навигации внизу -->

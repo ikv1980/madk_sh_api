@@ -13,7 +13,6 @@
     <Page.Resources>
         <tools:OrderLastStatusConverter x:Key="LastStatusConverter" />
         <tools:TotalPriceConverter x:Key="TotalPriceConverter" />
-        <tools:PriceConverter x:Key="PriceConverter" />
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -35,6 +34,7 @@
                   BorderThickness="1"
                   BorderBrush="Gray"
                   FontSize="16"
+                  AlternationCount="1000"
                   ItemsSource="{Binding TableValue}">
             <DataGrid.Resources>
                 <!-- Контекстное меню -->
@@ -123,21 +123,21 @@
             </DataGrid.RowStyle>
             <!-- Основной контент -->
             <DataGrid.Columns>
-                <DataGridTextColumn Header="№ заказа" Binding="{Binding Id}" />
-                <DataGridTextColumn Header="Клиент" Binding="{Binding OrdersClientNavigation.ClientName}" />
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="Клиент" Binding="{Binding Client.ClientName}" />
                 <DataGridTextColumn Header="Менеджер">
                     <DataGridTextColumn.Binding>
                         <MultiBinding StringFormat="{}{0} {1}">
-                            <Binding Path="OrdersUserNavigation.Surname" />
-                            <Binding Path="OrdersUserNavigation.Firstname" />
+                            <Binding Path="User.Surname" />
+                            <Binding Path="User.Firstname" />
                         </MultiBinding>
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Дата создания"
-                                    Binding="{Binding OrdersData, StringFormat='{}{0:dd.MM.yyyy}'}" />
-                <DataGridTextColumn Header="Тип оплаты" Binding="{Binding OrdersPaymentNavigation.PaymentName}" />
-                <DataGridTextColumn Header="Тип доставки" Binding="{Binding OrdersDeliveryNavigation.DeliveryName}" />
-                <DataGridTextColumn Header="Адрес доставки" Binding="{Binding DeliveryAddress}" />
+                                    Binding="{Binding CreatedAt, StringFormat='{}{0:dd.MM.yyyy}'}" />
+                <DataGridTextColumn Header="Тип оплаты" Binding="{Binding Payment.PaymentName}" />
+                <DataGridTextColumn Header="Тип доставки" Binding="{Binding Delivery.DeliveryName}" />
+                <DataGridTextColumn Header="Адрес доставки" Binding="{Binding DeliveryAddress}" Width="200" />
                 <DataGridTextColumn Header="Статус"
                                     Binding="{Binding Id, Converter={StaticResource LastStatusConverter}}" />
                 <DataGridTextColumn Header="ИТОГО"

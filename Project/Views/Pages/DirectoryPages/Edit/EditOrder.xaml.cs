@@ -68,9 +68,9 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             var latestStatusId = item.OrderStatuses
                 .OrderByDescending(s => s.CreatedAt)
                 .FirstOrDefault()?.StatusId;
-            _currentStatus = (ulong)latestStatusId!;
+            _currentStatus = (ulong)(latestStatusId ?? 1);
             EditOrdersStatus.SelectedItem =
-                DbUtils.db.OrderStatuses.FirstOrDefault(m => m.Id == latestStatusId);
+                DbUtils.db.OrderStatuses.FirstOrDefault(m => m.Id == _currentStatus);
 
             // Загрузка связанных автомобилей
             var carsInOrder = DbUtils.db.OrderCars

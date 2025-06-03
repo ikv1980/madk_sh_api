@@ -10,6 +10,9 @@
       xmlns:wind="clr-namespace:Project.Views.Pages.DirectoryPages.Edit"
       d:DesignHeight="450" d:DesignWidth="1100"
       Title="OrderClientsPage">
+    <Page.Resources>
+        <tools:IndexConverter x:Key="IndexConverter" />
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -30,6 +33,7 @@
                   BorderThickness="1"
                   BorderBrush="Gray"
                   FontSize="16"
+                  AlternationCount="1000"
                   ItemsSource="{Binding TableValue}">
             <DataGrid.Resources>
                 <!-- Контекстное меню -->
@@ -104,12 +108,13 @@
             </DataGrid.RowStyle>
             <!-- Основной контент -->
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Логин" Binding="{Binding ClientLogin}" />
-                <DataGridTextColumn Header="Наименование" Binding="{Binding ClientName}" />
+                <DataGridTextColumn Header="№"
+                                    Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=AlternationIndex, Converter={StaticResource IndexConverter}}" />
+                <DataGridTextColumn Header="Наименование" Binding="{Binding ClientName}" Width="150" />
                 <DataGridTextColumn Header="Телефон" Binding="{Binding ClientPhone}" />
                 <DataGridTextColumn Header="E-mail" Binding="{Binding ClientMail}" />
                 <DataGridTextColumn Header="Регистрация"
-                                    Binding="{Binding ClientDateRegistration, StringFormat='{}{0:dd.MM.yyyy}'}" />
+                                    Binding="{Binding CreatedAt, StringFormat='{}{0:dd.MM.yyyy}'}" />
                 <DataGridTextColumn Header="Доп. информация" Binding="{Binding ClientAddData}" />
             </DataGrid.Columns>
         </DataGrid>

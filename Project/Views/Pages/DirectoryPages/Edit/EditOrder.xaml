@@ -232,7 +232,7 @@
                               BorderThickness="1"
                               BorderBrush="LightGray"
                               FontSize="16"
-                              AlternationCount="20"
+                              AlternationCount="1000"
                               RowHeight="30" MaxHeight="190"
                               ScrollViewer.CanContentScroll="False"
                               ItemsSource="{Binding SelectedOrderCars}">

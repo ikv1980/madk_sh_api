@@ -20,7 +20,7 @@ namespace Project.Tools
                         .Where(oc => oc.OrderId == orderId)
                         .Sum(oc => oc.Car.Price);
 
-                    return totalPrice.ToString("N0", russianCulture) + " ₽";
+                    return totalPrice.ToString("N2", russianCulture) + " ₽";
                 }
             }
 

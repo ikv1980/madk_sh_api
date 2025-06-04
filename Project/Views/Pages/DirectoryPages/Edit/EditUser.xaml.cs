@@ -4,12 +4,11 @@ using Project.Interfaces;
 using Project.Models;
 using Project.Tools;
 using Wpf.Ui.Common;
-using Wpf.Ui.Controls;
 using MessageBox = System.Windows.MessageBox;
 
 namespace Project.Views.Pages.DirectoryPages.Edit
 {
-    public partial class EditUser : UiWindow, IRefresh
+    public partial class EditUser : IRefresh
     {
         public event Action RefreshRequested;
         private readonly bool _isEditMode;
@@ -51,12 +50,9 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                 : (DateTime?)null;
             EditUsersPhone.Text = item.Phone;
             EditUsersMail.Text = item.Email;
-            EditUsersDepartment.SelectedItem =
-                DbUtils.db.UserDepartments.FirstOrDefault(m => m.Id == item.DepartmentId);
-            EditUsersPosition.SelectedItem =
-                DbUtils.db.UserPositions.FirstOrDefault(m => m.Id == item.PositionId);
-            EditUsersStatus.SelectedItem =
-                DbUtils.db.UserStatuses.FirstOrDefault(m => m.Id == item.StatusId);
+            EditUsersDepartment.SelectedItem = DbUtils.db.UserDepartments.FirstOrDefault(m => m.Id == item.DepartmentId);
+            EditUsersPosition.SelectedItem = DbUtils.db.UserPositions.FirstOrDefault(m => m.Id == item.PositionId);
+            EditUsersStatus.SelectedItem = DbUtils.db.UserStatuses.FirstOrDefault(m => m.Id == item.StatusId);
             EditUsersStartWork.SelectedDate = item.StartWork.HasValue
                 ? item.StartWork.Value.ToDateTime(TimeOnly.MinValue)
                 : (DateTime?)null;
@@ -247,8 +243,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                 : (DateOnly?)null;
             item.Phone = EditUsersPhone.Text.Trim();
             item.Email = EditUsersMail.Text.Trim();
-            item.DepartmentId = (EditUsersDepartment.SelectedItem as UserDepartment)?.Id ??
-                                   item.DepartmentId;
+            item.DepartmentId = (EditUsersDepartment.SelectedItem as UserDepartment)?.Id ?? item.DepartmentId;
             item.PositionId = (EditUsersPosition.SelectedItem as UserPosition)?.Id ?? item.PositionId;
             item.StartWork = EditUsersStartWork.SelectedDate.HasValue
                 ? DateOnly.FromDateTime(EditUsersStartWork.SelectedDate.Value)
@@ -283,7 +278,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             {
                 EditUsersPosition.ItemsSource = DbUtils.db.UserDepartmentPositions
                     .Where(x => x.DepartmentId == selectDepartment.Id)
-                    .Select(x => x.PositionId)
+                    .Select(x => x.Position)
                     .ToList();
             }
             else

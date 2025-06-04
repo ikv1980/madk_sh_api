@@ -1,4 +1,5 @@
-﻿using Project.Models;
+﻿using System.Text.Json;
+using Project.Models;
 using Project.Tools;
 using System.Windows;
 using Wpf.Ui.Controls;
@@ -29,11 +30,11 @@ namespace Project.Views
         // Авторизация пользователя 
         private async void AuthButton_Click(object sender, RoutedEventArgs e)
         {
-            //string login = LoginTextBox.Text;
-            //string enteredPassword = _helper.HashPassword(PasswordBox.Password);
+            string login = LoginTextBox.Text;
+            string enteredPassword = _helper.HashPassword(PasswordBox.Password);
 
-            string login = "admin";
-            string enteredPassword = _helper.HashPassword("kostik80");
+            //string login = "admin";
+            //string enteredPassword = _helper.HashPassword("kostik80");
 
             var user = await DbUtils.db.Users
                 .Where(u => u.Login == login)

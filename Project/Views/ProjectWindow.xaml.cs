@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ModernWpf.Controls;
 using Project.Models;
 using Project.Tools;
 using Project.Views.Pages;
@@ -14,8 +13,10 @@ namespace Project.Views
         public ProjectWindow(User user)
         {
             InitializeComponent();
+            // Данные текущего пользователя
             Global.CurrentUser = user;
-            Global.ParsePermissions(user);
+            Global.CurrentPermissions = Global.ParsePermissions(Global.CurrentUser);
+            
             this.Loaded += change_Screeen;
             MainTabControl.SelectedIndex = 1;
             SecondTabControl.SelectedIndex = 0;
@@ -26,7 +27,7 @@ namespace Project.Views
         // Доступ к вкладкам и справочникам пользователя
         private void SetAccess()
         {
-            if (Global.ParsedPermissions.Tabs == null || Global.ParsedPermissions.Tabs.Count == 0)
+            if (Global.CurrentPermissions.Tabs == null || Global.CurrentPermissions.Tabs.Count == 0)
             {
                 MessageBox.Show("Разрешения пользователя не определены. Доступ ограничен.", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
@@ -34,7 +35,7 @@ namespace Project.Views
             }
 
             // Доступ к вкладкам
-            foreach (var tabPermission in Global.ParsedPermissions.Tabs)
+            foreach (var tabPermission in Global.CurrentPermissions.Tabs)
             {
                 var visibility = tabPermission.Permissions.Read ? Visibility.Visible : Visibility.Collapsed;
 
@@ -59,7 +60,7 @@ namespace Project.Views
             }
 
             // Доступ к справочникам
-            foreach (var directoriesPermission in Global.ParsedPermissions.Directories)
+            foreach (var directoriesPermission in Global.CurrentPermissions.Directories)
             {
                 var visibility = directoriesPermission.Permissions.Read ? Visibility.Visible : Visibility.Collapsed;
 

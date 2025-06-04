@@ -204,7 +204,6 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
                 MessageBox.Show($"Ошибка подключения к базе данных: {ex.Message}", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }

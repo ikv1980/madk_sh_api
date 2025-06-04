@@ -6,11 +6,12 @@ using Project.Tools;
 using Wpf.Ui.Controls;
 using MessageBox = System.Windows.MessageBox;
 
-namespace Project.Views
+namespace Project.Views.Pages.DirectoryPages.Edit
 {
     public partial class EditPermission : UiWindow
     {
         private User _user;
+        private UserPermissions _userPermissions;
 
         public EditPermission(User user)
         {
@@ -26,10 +27,10 @@ namespace Project.Views
 
         private void LoadPermissions()
         {
-            Global.ParsePermissions(_user);
-
+            _userPermissions = Global.ParsePermissions(_user);
+            
             // Отображение вкладок
-            foreach (var tab in Global.ParsedPermissions.Tabs)
+            foreach (var tab in _userPermissions.Tabs)
             {
                 var stackPanel = new StackPanel
                 {
@@ -53,7 +54,7 @@ namespace Project.Views
             }
 
             // Отображение справочников
-            foreach (var directory in Global.ParsedPermissions.Directories)
+            foreach (var directory in _userPermissions.Directories)
             {
                 var stackPanel = new StackPanel
                 {
@@ -80,8 +81,8 @@ namespace Project.Views
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             // Получаем текущие права из интерфейса
-            var tabs = Global.ParsedPermissions.Tabs;
-            var directories = Global.ParsedPermissions.Directories;
+            var tabs = _userPermissions.Tabs;
+            var directories = _userPermissions.Directories;
 
             // Обновляем права на основе чекбоксов
             for (int i = 0; i < TabsList.Items.Count; i++)
@@ -113,7 +114,7 @@ namespace Project.Views
                     var userToUpdate = context.Users.Find(_user.Id);
                     if (userToUpdate != null)
                     {
-                        userToUpdate.Permissions = JsonSerializer.Serialize(Global.ParsedPermissions);
+                        userToUpdate.Permissions = JsonSerializer.Serialize(_userPermissions);
                         context.SaveChanges();
                     }
                 }

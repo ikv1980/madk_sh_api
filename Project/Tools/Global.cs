@@ -7,73 +7,77 @@ namespace Project.Tools
     internal class Global
     {
         public static User CurrentUser { get; set; }
-        public static UserPermissions ParsedPermissions { get; private set; }
+        public static UserPermissions CurrentPermissions { get; set; }
 
-        // Разбор JSON (поле `users`.`users_permission`)
-        public static void ParsePermissions(User user)
+        // Разбор JSON с возвратом UserPermissions и использованием прав по умолчанию при необходимости
+        public static UserPermissions ParsePermissions(User user)
         {
+            UserPermissions permissions;
+
             if (user == null)
             {
-                MessageBox.Show("Пользователь не указан.", "Ошибка",
+                MessageBox.Show("Пользователь не указан. Будут применены права по умолчанию.", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                permissions = GetDefaultPermissions();
+                return permissions;
             }
 
             if (!string.IsNullOrWhiteSpace(user.Permissions))
             {
                 try
                 {
-                    ParsedPermissions = JsonSerializer.Deserialize<UserPermissions>(user.Permissions);
+                    permissions = JsonSerializer.Deserialize<UserPermissions>(user.Permissions);
 
                     // Проверка на наличие вкладок
-                    if (ParsedPermissions?.Tabs == null || ParsedPermissions.Tabs.Count == 0)
+                    if (permissions?.Tabs == null || permissions.Tabs.Count == 0)
                     {
-                        MessageBox.Show("JSON разобран, но вкладки отсутствуют.", "Отладка",
+                        MessageBox.Show("JSON разобран, но вкладки отсутствуют.\nБудут применены права по умолчанию.", "Отладка",
                             MessageBoxButton.OK,
                             MessageBoxImage.Warning);
                     }
 
                     // Проверка на наличие справочников
-                    if (ParsedPermissions?.Directories == null || ParsedPermissions.Directories.Count == 0)
+                    if (permissions?.Directories == null || permissions.Directories.Count == 0)
                     {
-                        MessageBox.Show("JSON разобран, но справочники отсутствуют.", "Отладка",
+                        MessageBox.Show("JSON разобран, но справочники отсутствуют.\nБудут применены права по умолчанию.", "Отладка",
                             MessageBoxButton.OK,
                             MessageBoxImage.Warning);
                     }
                 }
                 catch (Exception ex)
                 {
-                    ParsedPermissions = new UserPermissions
-                    {
-                        Tabs = new List<TabPermission>(),
-                        Directories = new List<DirectoryPermission>()
-                    };
-                    MessageBox.Show($"Ошибка парсинга JSON: {ex.Message}\nJSON: {user.Permissions}",
+                    MessageBox.Show($"Ошибка парсинга JSON: {ex.Message}\nБудут применены права по умолчанию.",
                         "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    permissions = GetDefaultPermissions();
                 }
             }
             else
             {
-                MessageBox.Show("Permissions пусто или отсутствует.", "Отладка",
+                MessageBox.Show("Permissions пусто или отсутствует. Будут применены права по умолчанию.", "Отладка",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
-                ParsedPermissions = new UserPermissions
-                {
-                    Tabs = new List<TabPermission>()
-                };
+                permissions = GetDefaultPermissions();
             }
+            
+            return permissions;
         }
 
-        // Вкладки - проверка прав на запись 
+        // Получение прав по умолчанию
+        public static UserPermissions GetDefaultPermissions()
+        {
+            return JsonSerializer.Deserialize<UserPermissions>(DefaultPermissions.User);
+        }
+
+        // Проверка прав на запись для вкладки
         public static bool GetWritePermissionForTab(string tabName)
         {
-            if (ParsedPermissions == null)
+            if (CurrentPermissions == null)
             {
                 MessageBox.Show("Права пользователя отсутствуют.", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 
-            var tabPermission = ParsedPermissions.Tabs.FirstOrDefault(tab => tab.Name == tabName);
+            var tabPermission = CurrentPermissions.Tabs.FirstOrDefault(tab => tab.Name == tabName);
 
             if (tabPermission != null)
             {
@@ -85,21 +89,21 @@ namespace Project.Tools
             return false;
         }
 
-        // Справочники - проверка прав на запись
+        // Проверка прав на запись для справочника
         public static bool GetWritePermissionForDict(string dictName)
         {
-            if (ParsedPermissions == null)
+            if (CurrentPermissions == null)
             {
                 MessageBox.Show("Права пользователя отсутствуют.", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 
-            var tabPermission = ParsedPermissions.Directories.FirstOrDefault(dict => dict.Name == dictName);
+            var dictPermission = CurrentPermissions.Directories.FirstOrDefault(dict => dict.Name == dictName);
 
-            if (tabPermission != null)
+            if (dictPermission != null)
             {
-                return tabPermission.Permissions.Write;
+                return dictPermission.Permissions.Write;
             }
 
             MessageBox.Show($"Справочник с именем \"{dictName}\" не найден.", "Информация",

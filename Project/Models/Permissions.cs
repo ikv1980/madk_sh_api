@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Project.Tools
+﻿namespace Project.Tools
 {
     // Права по умолчанию
     public class DefaultPermissions
@@ -28,7 +26,8 @@ namespace Project.Tools
                 { ""Name"": ""User"", ""RusName"": ""Сотрудники"", ""Permissions"": { ""Read"": false, ""Write"": false } },
                 { ""Name"": ""UserDepartment"", ""RusName"": ""Отделы"", ""Permissions"": { ""Read"": false, ""Write"": false } },
                 { ""Name"": ""UserPosition"", ""RusName"": ""Должности"", ""Permissions"": { ""Read"": false, ""Write"": false } },
-                { ""Name"": ""UserStatus"", ""RusName"": ""Статусы сотрудников"", ""Permissions"": { ""Read"": false, ""Write"": false } }
+                { ""Name"": ""UserStatus"", ""RusName"": ""Статусы сотрудников"", ""Permissions"": { ""Read"": false, ""Write"": false } },
+                { ""Name"": ""UserDepartmentPosition"", ""RusName"": ""Отдел-Должность"", ""Permissions"": { ""Read"": false, ""Write"": false } }
             ]
         }";
     }

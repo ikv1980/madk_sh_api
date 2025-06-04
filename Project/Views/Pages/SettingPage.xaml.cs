@@ -1,11 +1,8 @@
 ﻿using System.Windows;
-using System.Windows.Media;
 using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
-using ModernWpf.Controls;
 using Project.Models;
-using Project.Tools;
-
+using Project.Views.Pages.DirectoryPages.Edit;
 using Page = System.Windows.Controls.Page;
 
 namespace Project.Views.Pages

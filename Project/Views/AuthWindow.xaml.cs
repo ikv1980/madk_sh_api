@@ -63,7 +63,7 @@ namespace Project.Views
                     return;
                 }
                 
-                if (user.StatusId == 2)
+                if (user.Status.StatusName.ToLower() == "уволен" || user.Status.StatusName.ToLower() == "не работает")
                 {
                     MessageBox.Show(
                         $"Ваш аккаунт заблокирован.\nСтатус в системе [{user.Status.StatusName}].\nОбратитесь к администратору.",

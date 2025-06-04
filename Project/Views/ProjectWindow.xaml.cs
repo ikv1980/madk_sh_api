@@ -68,7 +68,7 @@ namespace Project.Views
                 {
                     // для Заказов
                     case "order":
-                        OrdersClientButton.Visibility = visibility;
+                        OrdersButton.Visibility = visibility;
                         break;
                     case "client":
                         OrdersClientButton.Visibility = visibility;
@@ -79,21 +79,21 @@ namespace Project.Views
                     case "payment":
                         OrdersPaymentButton.Visibility = visibility;
                         break;
-                    case "status":
+                    case "orderstatus":
                         OrdersStatusButton.Visibility = visibility;
                         break;
                     // для Автомобилей
                     case "car":
                         CarsButton.Visibility = visibility;
                         break;
-                    case "carcountry":
-                        CarsCountryButton.Visibility = visibility;
-                        break;
                     case "carmark":
                         CarsMarkButton.Visibility = visibility;
                         break;
                     case "carmodel":
                         CarsModelButton.Visibility = visibility;
+                        break;
+                    case "carcountry":
+                        CarsCountryButton.Visibility = visibility;
                         break;
                     case "cartype":
                         CarsTypeButton.Visibility = visibility;

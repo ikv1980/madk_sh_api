@@ -176,11 +176,6 @@
                                         Tag="{x:Type direct:CarsPage}"
                                         Click="SubMenuButton_Click" />
                                     <Button
-                                        x:Name="CarsCountryButton"
-                                        Content="Страны"
-                                        Tag="{x:Type direct:CarCountriesPage}"
-                                        Click="SubMenuButton_Click" />
-                                    <Button
                                         x:Name="CarsMarkButton"
                                         Content="Марки"
                                         Tag="{x:Type direct:CarMarksPage}"
@@ -189,6 +184,11 @@
                                         x:Name="CarsModelButton"
                                         Content="Модели"
                                         Tag="{x:Type direct:CarModelsPage}"
+                                        Click="SubMenuButton_Click" />
+                                    <Button
+                                        x:Name="CarsCountryButton"
+                                        Content="Страны"
+                                        Tag="{x:Type direct:CarCountriesPage}"
                                         Click="SubMenuButton_Click" />
                                     <Button
                                         x:Name="CarsTypeButton"
@@ -243,7 +243,7 @@
                                         Click="SubMenuButton_Click" />
                                     <Button
                                         x:Name="UsersStatusButton"
-                                        Content="Статусы"
+                                        Content="Статусы сотрудников"
                                         Tag="{x:Type direct:UserStatusesPage}"
                                         Click="SubMenuButton_Click" />
                                     <Separator Background="Gainsboro" />

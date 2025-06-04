@@ -166,7 +166,7 @@
             <Grid Grid.Row="10" Margin="0,10,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="500" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Дата приема:"
                            Grid.Column="0"
@@ -179,7 +179,7 @@
             <Grid Grid.Row="11" Margin="0,10,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="500" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Текущий статус:"
                            Grid.Column="0"

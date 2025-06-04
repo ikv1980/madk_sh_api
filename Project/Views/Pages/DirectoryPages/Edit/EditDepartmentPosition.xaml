@@ -22,7 +22,7 @@
                           modern:ControlHelper.CornerRadius="5"
                           modern:ControlHelper.PlaceholderText="Выберите отдел"
                           x:Name="EditDepartmentName"
-                          SelectedValuePath="DepartmentId"
+                          SelectedValuePath="Id"
                           DisplayMemberPath="DepartmentName"
                           Width="300"
                           BorderBrush="DimGray" />
@@ -43,7 +43,7 @@
                           modern:ControlHelper.CornerRadius="5"
                           modern:ControlHelper.PlaceholderText="Выберите должность"
                           x:Name="EditPositionName"
-                          SelectedValuePath="PositionId"
+                          SelectedValuePath="Id"
                           DisplayMemberPath="PositionName"
                           Width="300"
                           BorderBrush="DimGray" />

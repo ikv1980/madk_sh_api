@@ -22,7 +22,7 @@
                           modern:ControlHelper.CornerRadius="5"
                           modern:ControlHelper.PlaceholderText="Выберите марку"
                           x:Name="EditMarkName"
-                          SelectedValuePath="MarkId"
+                          SelectedValuePath="Id"
                           DisplayMemberPath="MarkName"
                           Width="300"
                           BorderBrush="DimGray" />
@@ -43,7 +43,7 @@
                           modern:ControlHelper.CornerRadius="5"
                           modern:ControlHelper.PlaceholderText="Выберите модель"
                           x:Name="EditModelName"
-                          SelectedValuePath="ModelId"
+                          SelectedValuePath="Id"
                           DisplayMemberPath="ModelName"
                           Width="300"
                           BorderBrush="DimGray" />
@@ -64,7 +64,7 @@
                           modern:ControlHelper.CornerRadius="5"
                           modern:ControlHelper.PlaceholderText="Выберите страну"
                           x:Name="EditCountryName"
-                          SelectedValuePath="CountryId"
+                          SelectedValuePath="Id"
                           DisplayMemberPath="CountryName"
                           Width="300"
                           BorderBrush="DimGray" />

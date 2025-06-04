@@ -43,8 +43,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         public EditOrder(Order item, string button) : this()
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
-
-            InitializeComponent();
+            
             Init();
             _itemId = item.Id;
 

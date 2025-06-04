@@ -37,8 +37,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         public EditUser(User item, string button) : this()
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
-
-            InitializeComponent();
+            
             Init();
             _oldPassword = item.Password;
             _itemId = item.Id;

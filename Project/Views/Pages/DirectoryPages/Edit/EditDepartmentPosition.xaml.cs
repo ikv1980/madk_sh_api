@@ -34,7 +34,6 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         // Конструктор для изменения (удаления) данных
         public EditDepartmentPosition(UserDepartmentPosition item, string button) : this()
         {
-            InitializeComponent();
             Init();
             _itemId = item.Id;
             EditDepartmentName.SelectedItem =

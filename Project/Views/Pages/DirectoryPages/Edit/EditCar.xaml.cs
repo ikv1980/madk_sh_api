@@ -37,8 +37,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         public EditCar(Car item, string button) : this()
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
-
-            InitializeComponent();
+            
             Init();
             _itemId = item.Id;
 
@@ -120,7 +119,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                         DbUtils.db.Cars.Add(item);
                     }
                 }
-
+                
                 DbUtils.db.SaveChanges();
                 RefreshRequested?.Invoke();
                 Close();
@@ -251,7 +250,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             item.DateAt = EditCarDate.SelectedDate.HasValue
                 ? DateOnly.FromDateTime(EditCarDate.SelectedDate.Value)
                 : DateOnly.MinValue; // или другое значение по умолчанию
-            item.Price = int.TryParse(EditPrice.Text.Trim(), out int price) ? price : 0;
+            item.Price = decimal.TryParse(EditPrice.Text.Trim(), out decimal price) ? price : 0;
         }
 
         // Фокус на элементе

@@ -36,7 +36,6 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         // Конструктор для изменения (удаления) данных
         public EditMarkModel(CarMarkModelCountry item, string button) : this()
         {
-            InitializeComponent();
             Init();
             _itemId = item.Id;
             EditMarkName.SelectedItem = 

@@ -14,6 +14,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         private readonly bool _isEditMode;
         private readonly bool _isDeleteMode;
         private readonly ulong _itemId;
+        private readonly ValidateField _validator;
 
         // Конструктор для добавления данных
         public EditDepartment()
@@ -24,6 +25,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             Title = "Добавление данных";
             SaveButton.Content = "Добавить";
             SaveButton.Icon = SymbolRegular.AddCircle24;
+            _validator = new ValidateField();
         }
 
         // Конструктор для изменения (удаления) данных
@@ -34,6 +36,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             _itemId = item.Id;
             EditDepartmentName.Text = item.DepartmentName;
             EditDescriptionName.Text = item.DepartmentDescription;
+            EditDepartmentMail.Text = item.DepartmentMail;
 
             // изменяем диалоговое окно, в зависимости от нажатой кнопки
             if (button == "Change")
@@ -88,6 +91,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                     // Изменение или добавление
                     item.DepartmentName = EditDepartmentName.Text.Trim();
                     item.DepartmentDescription = EditDescriptionName.Text.Trim();
+                    item.DepartmentMail = EditDepartmentMail.Text.Trim();
 
                     if (!_isEditMode)
                     {
@@ -117,6 +121,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         {
             var item = EditDepartmentName.Text.Trim().ToLower();
             var description = EditDescriptionName.Text.Trim().ToLower();
+            var mail = EditDepartmentMail.Text.Trim().ToLower();
 
             if (string.IsNullOrWhiteSpace(item))
             {
@@ -135,6 +140,13 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             if (DbUtils.db.UserDepartments.Any(x => x.DepartmentName == item && x.Id != _itemId))
             {
                 MessageBox.Show($"Запись '{EditDepartmentName.Text}' уже существует в базе.", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            
+            if (!_validator.IsValid(EditDepartmentMail.Text, "email"))
+            {
+                MessageBox.Show("Некорректный e-mail.", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }

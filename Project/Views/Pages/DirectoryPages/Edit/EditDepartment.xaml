@@ -24,6 +24,13 @@
                         Icon="Save24"
                         IconFilled="False"
                         x:Name="EditDepartmentName"/>
+            <ui:TextBox FontSize="17"
+                        Width="300"
+                        PlaceholderText="Введите e-mail"
+                        modern:ControlHelper.CornerRadius="5"
+                        Icon="Mail24"
+                        IconFilled="False"
+                        x:Name="EditDepartmentMail"/>
             <ui:TextBox
                 AcceptsReturn="True"
                 MinHeight="60"
@@ -32,7 +39,7 @@
                 TextWrapping="Wrap"
                 FontSize="17"
                 Width="300"
-                Icon="Save24"
+                Icon="TextDescription24"
                 IconFilled="False"
                 x:Name="EditDescriptionName" />
             <TextBlock Text="Подтверждаете удаление данных?"

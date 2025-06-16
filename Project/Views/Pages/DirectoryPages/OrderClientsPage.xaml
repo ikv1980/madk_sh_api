@@ -115,6 +115,7 @@
                 <DataGridTextColumn Header="E-mail" Binding="{Binding ClientMail}" />
                 <DataGridTextColumn Header="Регистрация"
                                     Binding="{Binding CreatedAt, StringFormat='{}{0:dd.MM.yyyy}'}" />
+                <DataGridTextColumn Header="Адрес" Binding="{Binding ClientAddress}" />
                 <DataGridTextColumn Header="Доп. информация" Binding="{Binding ClientAddData}" />
             </DataGrid.Columns>
         </DataGrid>

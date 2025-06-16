@@ -24,6 +24,17 @@
                         Icon="Save24"
                         IconFilled="False"
                         x:Name="EditDepartmentName"/>
+            <ui:TextBox
+                AcceptsReturn="True"
+                MinHeight="60"
+                VerticalAlignment="Top"
+                PlaceholderText="Введите описание отдела"
+                TextWrapping="Wrap"
+                FontSize="17"
+                Width="300"
+                Icon="Save24"
+                IconFilled="False"
+                x:Name="EditDescriptionName" />
             <TextBlock Text="Подтверждаете удаление данных?"
                        FontSize="16" FontWeight="SemiBold"
                        VerticalAlignment="Center"

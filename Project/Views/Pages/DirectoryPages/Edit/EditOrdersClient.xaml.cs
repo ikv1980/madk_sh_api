@@ -38,6 +38,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             EditClientPhone.Text = item.ClientPhone;
             EditClientMail.Text = item.ClientMail;
             EditClientAddData.Text = item.ClientAddData;
+            EditClientAddress.Text = item.ClientAddress;
             ClientDateRegistrationTextBlock.Text = item.CreatedAt?.ToString("dd.MM.yyyy") ?? DateTime.Now.ToString("dd.MM.yyyy");
             EditClientStatus.SelectedItem = EditClientStatus.Items
                 .Cast<ComboBoxItem>()
@@ -158,6 +159,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             item.ClientPhone = EditClientPhone.Text.Trim();
             item.ClientMail = EditClientMail.Text.Trim();
             item.ClientAddData = EditClientAddData.Text.Trim();
+            item.ClientAddress = EditClientAddress.Text.Trim();
             item.ClientStatus = ((ComboBoxItem)EditClientStatus.SelectedItem)?.Tag.ToString() == "1";
         }
 

@@ -100,6 +100,7 @@
             <!-- Основной контент -->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Отдел" Binding="{Binding DepartmentName}" />
+                <DataGridTextColumn Header="Описание" Binding="{Binding DepartmentDescription}" />
             </DataGrid.Columns>
         </DataGrid>
         <!-- Блок навигации внизу -->

@@ -33,6 +33,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
 
             _itemId = item.Id;
             EditDepartmentName.Text = item.DepartmentName;
+            EditDescriptionName.Text = item.DepartmentDescription;
 
             // изменяем диалоговое окно, в зависимости от нажатой кнопки
             if (button == "Change")
@@ -86,6 +87,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
 
                     // Изменение или добавление
                     item.DepartmentName = EditDepartmentName.Text.Trim();
+                    item.DepartmentDescription = EditDescriptionName.Text.Trim();
 
                     if (!_isEditMode)
                     {
@@ -114,10 +116,18 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         private bool IsValidInput()
         {
             var item = EditDepartmentName.Text.Trim().ToLower();
+            var description = EditDescriptionName.Text.Trim().ToLower();
 
             if (string.IsNullOrWhiteSpace(item))
             {
-                MessageBox.Show("Поле не должно быть пустым.", "Ошибка",
+                MessageBox.Show("Поле [Название отдела] не должно быть пустым.", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                MessageBox.Show("Поле [Описание] не должно быть пустым.", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }

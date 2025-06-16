@@ -101,6 +101,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Отдел" Binding="{Binding DepartmentName}" />
                 <DataGridTextColumn Header="Описание" Binding="{Binding DepartmentDescription}" />
+                <DataGridTextColumn Header="E-mail" Binding="{Binding DepartmentMail}" />
             </DataGrid.Columns>
         </DataGrid>
         <!-- Блок навигации внизу -->

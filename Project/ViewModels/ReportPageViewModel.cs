@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿
 using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using LiveCharts;
 using LiveCharts.Wpf;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using Project.Models;
 using Project.Tools;
 
@@ -188,6 +190,7 @@ namespace Project.ViewModels
                         var sale = managerSales.FirstOrDefault(d => d.Date == date);
                         values.Add(sale != null ? Math.Round(sale.Total) : 0);
                     }
+
                     // StackedColumnSeries, ColumnSeries, LineSeries
                     seriesCollection.Add(new StackedColumnSeries()
                     {
@@ -211,17 +214,30 @@ namespace Project.ViewModels
         {
             using (var context = new Db())
             {
+                // Получаем базовый запрос с включенными зависимостями
                 var query = context.Orders
-                    .Include(o => o.Client) // Включаем данные клиента
-                    .Include(o => o.User) // Включаем данные менеджера
-                    .Include(o => o.OrderCars) // Включаем связанные автомобили
-                    .ThenInclude(m => m.Car) // Включаем данные об автомобилях
+                    .Include(o => o.Client)
+                    .Include(o => o.User)
+                    .Include(o => o.OrderCars)
+                    .ThenInclude(oc => oc.Car)
+                    .Where(o => o.DeletedAt == null)
+                    .OrderBy(o => o.CreatedAt)
                     .AsQueryable();
 
+                // Применяем фильтры
                 if (SelectedManagerId != 0)
                 {
                     query = query.Where(o => o.UserId == SelectedManagerId);
                 }
+
+                // Получаем минимальную и максимальную даты для заголовка
+                DateTime minDate = StartDate ?? context.Orders
+                    .Where(o => o.CreatedAt.HasValue)
+                    .Min(o => o.CreatedAt.Value);
+
+                DateTime maxDate = EndDate ?? context.Orders
+                    .Where(o => o.CreatedAt.HasValue)
+                    .Max(o => o.CreatedAt.Value);
 
                 if (StartDate.HasValue)
                 {
@@ -235,30 +251,153 @@ namespace Project.ViewModels
 
                 var orders = query.ToList();
 
+                // Создаем новый Excel-файл
                 using (var package = new ExcelPackage())
                 {
+                    // Добавляем лист "Отчет по заказам"
                     var worksheet = package.Workbook.Worksheets.Add("Отчет по заказам");
 
-                    worksheet.Cells[1, 1].Value = "ID заказа";
-                    worksheet.Cells[1, 2].Value = "Клиент";
-                    worksheet.Cells[1, 3].Value = "Менеджер";
-                    worksheet.Cells[1, 4].Value = "Дата заказа";
-                    worksheet.Cells[1, 5].Value = "Сумма";
+                    // Устанавливаем Times New Roman для всего листа
+                    worksheet.Cells.Style.Font.Name = "Times New Roman";
+                    worksheet.Cells.Style.Font.Size = 14;
+                    
+                    // 1. Заполняем шапку отчета
+                    // Заголовок "Отчет по продажам ООО "Автосалон""
+                    worksheet.Cells["B3"].Value = "Отчет по продажам ООО \"Автосалон\"";
+                    worksheet.Cells["B3"].Style.Font.Bold = true;
+                    worksheet.Cells["B3"].Style.Font.Size = 16;
 
-                    for (int i = 0; i < orders.Count; i++)
+                    // Дата составления отчета
+                    worksheet.Cells["F3"].Value = DateTime.Now.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+                    worksheet.Cells["F3"].Style.Font.Size = 16;
+
+                    // Устанавливаем светло-серый фон для B3:F3
+                    using (var range = worksheet.Cells["B3:F3"])
                     {
-                        worksheet.Cells[i + 2, 1].Value = orders[i].Id;
-                        worksheet.Cells[i + 2, 2].Value = orders[i].Client?.ClientName ?? "N/A";
-                        worksheet.Cells[i + 2, 3].Value = orders[i].User?.Firstname ?? "N/A";
-                        worksheet.Cells[i + 2, 4].Value = orders[i].CreatedAt;
-                        worksheet.Cells[i + 2, 5].Value =
-                            orders[i].OrderCars.Sum(m => m.Car.Price); // Сумма цен автомобилей
+                        range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        range.Style.Fill.BackgroundColor.SetColor(Color.LightGray);
                     }
 
-                    var fileInfo = new FileInfo("Отчет_по_заказам.xlsx");
-                    package.SaveAs(fileInfo);
+                    // 2. Информация о сотруднике и периоде
+                    worksheet.Cells["B5"].Value = "Сотрудник:";
+                    worksheet.Cells["B5"].Style.Font.Bold = true;
 
-                    MessageBox.Show("Отчет успешно сохранен!");
+                    string managerName = SelectedManagerId == 0
+                        ? "по всем сотрудникам"
+                        : $"{orders.FirstOrDefault()?.User?.Surname} {orders.FirstOrDefault()?.User?.Firstname} {orders.FirstOrDefault()?.User?.Patronymic}"
+                            .Trim();
+
+                    worksheet.Cells["C5"].Value = managerName;
+
+                    worksheet.Cells["B6"].Value = "Начало:";
+                    worksheet.Cells["B6"].Style.Font.Bold = true;
+                    worksheet.Cells["C6"].Value = minDate.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+
+                    worksheet.Cells["B7"].Value = "Конец:";
+                    worksheet.Cells["B7"].Style.Font.Bold = true;
+                    worksheet.Cells["C7"].Value = maxDate.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+
+                    // 3. Создаем таблицу заказов
+                    // Заголовки таблицы
+                    worksheet.Cells["B9"].Value = "№ заказа";
+                    worksheet.Cells["C9"].Value = "Клиент";
+                    worksheet.Cells["D9"].Value = "Менеджер";
+                    worksheet.Cells["E9"].Value = "Дата заказа";
+                    worksheet.Cells["F9"].Value = "Сумма";
+
+                    // Форматирование заголовков таблицы
+                    using (var range = worksheet.Cells["B9:F9"])
+                    {
+                        range.Style.Font.Bold = true;
+                        range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        range.Style.Fill.BackgroundColor.SetColor(Color.LightCyan);
+                        range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    }
+
+                    // Заполняем данные таблицы
+                    int startRow = 10;
+                    foreach (var order in orders)
+                    {
+                        worksheet.Cells[$"B{startRow}"].Value = order.Id;
+                        worksheet.Cells[$"C{startRow}"].Value = order.Client?.ClientName ?? "N/A";
+
+                        // Формируем ФИО менеджера с проверкой на null
+                        string managerFullName = order.User != null
+                            ? $"{order.User.Surname} {order.User.Firstname} {order.User.Patronymic}".Trim()
+                            : "N/A";
+                        worksheet.Cells[$"D{startRow}"].Value = managerFullName;
+
+                        worksheet.Cells[$"E{startRow}"].Value =
+                            order.CreatedAt?.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture) ?? "N/A";
+    
+                        worksheet.Cells[$"F{startRow}"].Value = order.OrderCars.Sum(m => m.Car?.Price ?? 0);
+                        worksheet.Cells[$"F{startRow}"].Style.Numberformat.Format = "#,##0.00 ₽";
+
+                        startRow++;
+                    }
+
+                    // Применяем стиль ко всему диапазону данных
+                    if (startRow > 10) // Если есть данные
+                    {
+                        var dataRange = worksheet.Cells[$"B10:F{startRow - 1}"];
+    
+                        // Границы для всех строк с данными
+                        dataRange.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        dataRange.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        dataRange.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        dataRange.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    }
+
+                    // Добавляем строку ИТОГО (26 строк после начала таблицы)
+                    int totalRow = startRow + 1;
+                    worksheet.Cells[$"E{totalRow}"].Value = "ИТОГО";
+                    worksheet.Cells[$"E{totalRow}"].Style.Font.Bold = true;
+
+                    worksheet.Cells[$"F{totalRow}"].Formula = $"SUM(F10:F{startRow - 1})";
+                    worksheet.Cells[$"F{totalRow}"].Style.Numberformat.Format = "#,##0.00 ₽";
+                    worksheet.Cells[$"F{totalRow}"].Style.Font.Bold = true;
+
+                    // Границы для итоговой строки
+                    using (var range = worksheet.Cells[$"F{totalRow}"])
+                    {
+                        range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    }
+
+                    // Автоподбор ширины столбцов
+                    //worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                    // Фиксированная ширина столбца 
+                    worksheet.Column(2).Width = 15;
+                    worksheet.Column(3).Width = 30;
+                    worksheet.Column(4).Width = 40;
+                    worksheet.Column(5).Width = 17;
+                    worksheet.Column(6).Width = 20;
+                    
+                    // Диалог сохранения файла
+                    var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+                    {
+                        Filter = "Excel Files (*.xlsx)|*.xlsx",
+                        FileName = $"Отчет_по_заказам_{DateTime.Now:yyyyMMdd}.xlsx",
+                        DefaultExt = ".xlsx"
+                    };
+
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        // Сохраняем файл
+                        var excelFile = new FileInfo(saveFileDialog.FileName);
+                        package.SaveAs(excelFile);
+
+                        MessageBox.Show($"Отчет успешно сохранен:\n{excelFile.FullName}",
+                            "Успех",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+                    }
                 }
             }
         }

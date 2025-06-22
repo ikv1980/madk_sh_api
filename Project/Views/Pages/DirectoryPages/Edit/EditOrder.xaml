@@ -176,6 +176,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="140" />
                         <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="300" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0"
                                Text="Доставка:"
@@ -190,6 +192,15 @@
                               Width="300"
                               BorderBrush="DimGray"
                               SelectionChanged="SelectionDelivery" />
+                    <TextBlock Grid.Column="2" />
+                    <ui:Button Grid.Column="3"
+                               FontSize="17"
+                               Background="DodgerBlue"
+                               Content="Сформировать счёт"
+                               modern:ControlHelper.CornerRadius="5"
+                               Appearance="Primary"
+                               Click="CreateCheck"
+                               Margin="10,0" />
                 </Grid>
                 <Grid Grid.Row="5" Margin="0,10,0,0" x:Name="EditAddressName">
                     <Grid.ColumnDefinitions>

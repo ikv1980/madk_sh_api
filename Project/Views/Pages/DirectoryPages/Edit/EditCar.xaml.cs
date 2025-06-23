@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -37,7 +38,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         public EditCar(Car item, string button) : this()
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
-            
+
             Init();
             _itemId = item.Id;
 
@@ -54,10 +55,10 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                 DbUtils.db.CarColors.FirstOrDefault(m => m.Id == item.ColorId);
             EditCarVin.Text = item.Vin;
             EditCarPts.Text = item.Pts;
-            EditCarDate.SelectedDate = item.DateAt == default 
-                ? (DateTime?)null 
+            EditCarDate.SelectedDate = item.DateAt == default
+                ? (DateTime?)null
                 : item.DateAt.ToDateTime(TimeOnly.MinValue);
-            ShowCarBlock.Text = (item.Block != 0  ? "В заказе №" + item.Block.ToString() : "Свободна к продаже");
+            ShowCarBlock.Text = (item.Block != 0 ? "В заказе №" + item.Block.ToString() : "Свободна к продаже");
             ShowCarBlock.Background = item.Block != 0 ? Brushes.Pink : Brushes.LightGreen;
             EditPrice.Text = item.Price.ToString();
             //DisplayImage();
@@ -76,6 +77,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                 Title = "Просмотр данных";
                 SaveButton.Visibility = Visibility.Collapsed;
             }
+
             if (button == "Delete")
             {
                 _isDeleteMode = true;
@@ -119,7 +121,7 @@ namespace Project.Views.Pages.DirectoryPages.Edit
                         DbUtils.db.Cars.Add(item);
                     }
                 }
-                
+
                 DbUtils.db.SaveChanges();
                 RefreshRequested?.Invoke();
                 Close();
@@ -328,9 +330,8 @@ namespace Project.Views.Pages.DirectoryPages.Edit
         }
 
         // Добавление фотографии
-        private void UploadImage_Click(object sender, RoutedEventArgs e)
+        private async void UploadImage_Click(object sender, RoutedEventArgs e)
         {
-            // Открываем диалог выбора файла
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp",
@@ -341,67 +342,49 @@ namespace Project.Views.Pages.DirectoryPages.Edit
             {
                 try
                 {
-                    // Загружаем изображение
-                    string filePath = openFileDialog.FileName;
-                    BitmapImage bitmap = new BitmapImage(new Uri(filePath));
-                    EditCarImage.Source = bitmap;
+                    var filePath = openFileDialog.FileName;
+                    var fileBytes = File.ReadAllBytes(filePath);
+                    var fileName = Path.GetFileName(filePath);
+
+                    using var httpClient = new HttpClient();
+
+                    // Создание multipart/form-data
+                    using var form = new MultipartFormDataContent();
+                    var fileContent = new ByteArrayContent(fileBytes);
+                    fileContent.Headers.ContentType =
+                        new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
                     
-                    MessageBox.Show("Фото успешно загружено и сохранено в базе данных.", "Успех", 
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
+                    var carId = _itemId;
+
+                    form.Add(fileContent, "photo", fileName);
+                    form.Add(new StringContent(carId.ToString()), "car_id");
+
+                    // Укажи реальный URL API
+                    var response = await httpClient.PostAsync("http://tomware.ddns.net/api/v1/car-photos", form);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        MessageBox.Show("Фото успешно загружено на сервер.", "Успех", MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+
+                        // Загружаем и показываем локально выбранное изображение
+                        BitmapImage bitmap = new BitmapImage(new Uri(filePath));
+                        EditCarImage.Source = bitmap;
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Ошибка загрузки фото: {response.StatusCode}", "Ошибка", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка при сохранении фото: {ex.Message}", "Ошибка", 
-                        MessageBoxButton.OK,
+                    MessageBox.Show($"Исключение при загрузке фото: {ex.Message}", "Ошибка", MessageBoxButton.OK,
                         MessageBoxImage.Error);
                 }
             }
         }
-
-        // Сжатие изображения
-        private byte[] CompressImage(string filePath, int quality)
-        {
-            using (var originalImage = System.Drawing.Image.FromFile(filePath))
-            {
-                var jpegEncoder = System.Drawing.Imaging.ImageCodecInfo.GetImageEncoders()
-                    .FirstOrDefault(codec => codec.FormatID == System.Drawing.Imaging.ImageFormat.Jpeg.Guid);
-                if (jpegEncoder == null)
-                    throw new Exception("JPEG encoder not found");
-
-                var encoderParameters = new System.Drawing.Imaging.EncoderParameters(1)
-                {
-                    Param = { [0] = new System.Drawing.Imaging.EncoderParameter(System.Drawing.Imaging.Encoder.Quality, quality) }
-                };
-
-                using (var memoryStream = new MemoryStream())
-                {
-                    originalImage.Save(memoryStream, jpegEncoder, encoderParameters);
-                    return memoryStream.ToArray();
-                }
-            }
-        }
-        
-        // Отображение фотографии
-        /*private void DisplayImage(byte[] imageBytes)
-        {
-            if (imageBytes != null && imageBytes.Length > 0)
-            {
-                using (MemoryStream ms = new MemoryStream(imageBytes))
-                {
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.StreamSource = ms;
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.EndInit();
-                    EditCarImage.Source = bitmap;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Фото отсутствует.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }*/
 
         // Цена: ввод только цифр
         private void EditPrice_Input(object sender, TextCompositionEventArgs e)
